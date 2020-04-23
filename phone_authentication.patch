@@ -1,0 +1,15 @@
+Index: app/src/main/res/layout/activity_register.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_register.xml	(date 1587671720000)
++++ app/src/main/res/layout/activity_register.xml	(date 1587671749552)
+@@ -175,7 +175,6 @@
+         android:onClick="onRegistrationRequest"
+         android:shadowRadius="10"
+         android:text="@string/Register"
+-
+         android:textColor="#FFFFFF"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"

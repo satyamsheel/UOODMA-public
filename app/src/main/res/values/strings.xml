@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">UOODMA</string>
+    <string name="logIn">LogIn</string>
+    <string name="Register">Register</string>
+    <string name="LOG_IN">LOG IN</string>
+    <string name="email">Enter Email</string>
+    <string name="password">Enter Password</string>
+    <string name="firstName">Enter First Name</string>
+    <string name="lastName">Enter Last Name</string>
+    <string name="rePass">ReEnter Password</string>
+    <string name="phone">Enter Phone Number</string>
+    <string name="OTP">Enter OTP</string>
+</resources>

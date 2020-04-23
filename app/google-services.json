@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "416135150567",
+    "firebase_url": "https://uoodma-70c59.firebaseio.com",
+    "project_id": "uoodma-70c59",
+    "storage_bucket": "uoodma-70c59.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416135150567:android:18c90d6454061eceda1b42",
+        "android_client_info": {
+          "package_name": "com.example.uoodma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416135150567-9s6coomec7dcpdpjgi2cl5dpr1f2ju2s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.uoodma",
+            "certificate_hash": "1de5f69e91d5ec4e35786ff59f9417bfec90aa7e"
+          }
+        },
+        {
+          "client_id": "416135150567-l4f9mrl1a0ro2990b42dpjvvqu135i46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYxl6CJ3yN3p6Gx3e_wkhk0gBh_9-mEtE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416135150567-l4f9mrl1a0ro2990b42dpjvvqu135i46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
