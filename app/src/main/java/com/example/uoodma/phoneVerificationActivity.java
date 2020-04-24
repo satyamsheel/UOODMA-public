@@ -51,7 +51,7 @@ public class phoneVerificationActivity extends AppCompatActivity {
 
         sendVerificationCode(mobile);
 
-        phoneNumberEndingWith.setText("Enter OTP sent on the number ending with ******" + mobile.substring(6, 10));
+        phoneNumberEndingWith.setText("Enter OTP sent on the number ending with ******" + mobile.substring(9, 13));
     }
 
     public void finalRegistration(View view) {
@@ -108,14 +108,10 @@ public class phoneVerificationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = getIntent();
-                            String email = intent.getStringExtra("Email");
-                            String password = intent.getStringExtra("Password");
-                            emailPassRegistration(email, password);
-                            intent = new Intent(phoneVerificationActivity.this, mainDashboard.class);
+
+                            Intent intent = new Intent(phoneVerificationActivity.this, mainDashboard.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-
 
                         } else {
                             String message = "Somthing is wrong, we will fix it soon...";
@@ -136,21 +132,4 @@ public class phoneVerificationActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
-    public void emailPassRegistration(String emailId, String mainPassword) {
-        mAuth.createUserWithEmailAndPassword(emailId, mainPassword)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            Toast.makeText(phoneVerificationActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
 }
