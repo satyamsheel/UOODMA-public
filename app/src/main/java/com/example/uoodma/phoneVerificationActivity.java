@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
@@ -30,6 +32,7 @@ public class phoneVerificationActivity extends AppCompatActivity {
     private EditText inputOTPText;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+    Button button7;
 
 
     @Override
@@ -40,10 +43,12 @@ public class phoneVerificationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         inputOTPText = findViewById(R.id.inputOTPText);
         progressBar=findViewById(R.id.progressbar);
+        button7 = findViewById(R.id.button7);
 
         phoneNumberEndingWith = findViewById(R.id.phoneNumberEndingWith);
         Intent intent = getIntent();
         String mobile = intent.getStringExtra("Phone Number");
+
         sendVerificationCode(mobile);
 
         phoneNumberEndingWith.setText("Enter OTP sent on the number ending with ******" + mobile.substring(6, 10));
@@ -103,15 +108,16 @@ public class phoneVerificationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //verification successful we will start the profile activity
-                            Intent intent = new Intent(phoneVerificationActivity.this, mainDashboard.class);
+                            Intent intent = getIntent();
+                            String email = intent.getStringExtra("Email");
+                            String password = intent.getStringExtra("Password");
+                            emailPassRegistration(email, password);
+                            intent = new Intent(phoneVerificationActivity.this, mainDashboard.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
 
+
                         } else {
-
-                            //verification unsuccessful.. display an error message
-
                             String message = "Somthing is wrong, we will fix it soon...";
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -127,6 +133,23 @@ public class phoneVerificationActivity extends AppCompatActivity {
                             });
                             snackbar.show();
                         }
+                    }
+                });
+    }
+
+
+    public void emailPassRegistration(String emailId, String mainPassword) {
+        mAuth.createUserWithEmailAndPassword(emailId, mainPassword)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            Toast.makeText(phoneVerificationActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
     }
