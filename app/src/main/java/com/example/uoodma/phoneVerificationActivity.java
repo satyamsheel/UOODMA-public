@@ -149,7 +149,6 @@ public class phoneVerificationActivity extends AppCompatActivity {
                             Toast.makeText(phoneVerificationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
     }
