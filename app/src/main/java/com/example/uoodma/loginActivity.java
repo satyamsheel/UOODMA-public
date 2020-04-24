@@ -33,9 +33,26 @@ public class loginActivity extends AppCompatActivity {
         passwordText=findViewById(R.id.passwordText);
         button5=findViewById(R.id.button5);
 
+        emailText.addTextChangedListener(new GenericTextWatcher(emailText));
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (emailText.getText().toString().isEmpty()){
+                    emailText.setError("Please Enter Email Id");
+                }
+                if (passwordText.getText().toString().isEmpty()){
+                    passwordText.setError("Please Enter Password");
+                }
+                else{
+                    firebaseLogin();
+                }
+            }
+        });
+
     }
 
-    public void firebaseLogin(View view) {
+    public void firebaseLogin() {
         mAuth.signInWithEmailAndPassword(emailText.getText().toString(), passwordText.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
