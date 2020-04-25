@@ -17,6 +17,10 @@
         android:layout_height="match_parent"
         tools:context=".uploadDocuments">
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
+
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/profileImage"
         android:layout_width="250dp"
