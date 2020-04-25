@@ -26,13 +26,14 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/image"
+        android:layout_below="@+id/toolbar"
         app:civ_border_color="@color/lightPurple"
         app:civ_border_width="4dp"
         app:civ_shadow="true"
         app:civ_shadow_radius="5dp"
         app:civ_shadow_color="@color/lightPurple"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="10dp"/>
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
@@ -53,7 +54,7 @@
             android:layout_marginTop="10dp"/>
         <Button
             android:layout_width="280dp"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:id="@+id/sendData"
             android:layout_below="@id/idNumber"
             android:layout_marginTop="55dp"
@@ -66,10 +67,10 @@
             android:textSize="20sp"/>
         <Button
             android:layout_width="280dp"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:id="@+id/deleteRequest"
             android:layout_below="@id/sendData"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/edit_round"
             android:text="Delete Request"
