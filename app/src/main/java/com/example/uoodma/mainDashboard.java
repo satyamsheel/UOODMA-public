@@ -33,8 +33,8 @@ Button sendData,deleteRequest;
         setSupportActionBar(toolbar);
 
         Menu menu=navigationView.getMenu();
-        menu.findItem(R.id.navLogout).setVisible(false);
-        menu.findItem(R.id.navProfile).setVisible(false);
+        menu.findItem(R.id.navLogout).setVisible(true);
+        menu.findItem(R.id.navProfile).setVisible(true);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -63,7 +63,7 @@ Button sendData,deleteRequest;
                   startActivity(intent);
                   break;
               case R.id.navUploadDoc:
-                  Intent intent1=new Intent(mainDashboard.this,editProfile.class);
+                  Intent intent1=new Intent(mainDashboard.this,uploadDocuments.class);
                   startActivity(intent1);
                   break;
           }
