@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".phoneVerificationActivity"></activity>
+        <activity android:name=".DocDetail"></activity>
+        <activity android:name=".MyProfile" />
+        <activity android:name=".phoneVerificationActivity" />
         <activity android:name=".mainDashboard" />
         <activity android:name=".registerActivity" />
         <activity android:name=".loginActivity" />

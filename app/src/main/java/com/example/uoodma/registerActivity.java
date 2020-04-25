@@ -20,6 +20,10 @@ public class registerActivity extends AppCompatActivity {
     private Button button6;
     private Spinner registerSpinner;
 
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private final String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
+    private boolean passMatch = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +38,45 @@ public class registerActivity extends AppCompatActivity {
         button6=findViewById(R.id.button6);
         registerSpinner=findViewById(R.id.registerSpinner);
 
-        registerEmailText.addTextChangedListener(new GenericTextWatcher(registerEmailText));
-        registerPasswordText.addTextChangedListener(new GenericTextWatcher(registerPasswordText));
+        registerEmailText.addTextChangedListener(new genTextWatcher(registerEmailText));
+        registerPasswordText.addTextChangedListener(new genTextWatcher(registerPasswordText));
         registerRePasswordText.addTextChangedListener(validateTextWatcher);
-        registerPhoneText.addTextChangedListener(new GenericTextWatcher(registerPhoneText));
+        registerPhoneText.addTextChangedListener(new genTextWatcher(registerPhoneText));
 
         registerSpinner.setAdapter(new ArrayAdapter<String>(registerActivity.this,android.R.layout.
                 simple_spinner_dropdown_item,countryData.countryNames));
 
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!validateRegEmail()){
+                    return;
+                }
+                else if (!validateFirstName()){
+                    return;
+                }
+                else if (!validateLastName()){
+                    return;
+                }
+                else if (!validateRegPassword()){
+                    return;
+                }
+                else if (!validateConfirmPassword()){
+                    return;
+                }
+                else if (!validatePhoneNum()){
+                    return;
+                }
+                else {
+                    onRegistrationRequest();
+                }
+
+            }
+        });
+
     }
 
-    public void onRegistrationRequest(View view) {
+    public void onRegistrationRequest() {
         if(registerPasswordText.getText().toString().equals(registerRePasswordText.getText().toString()))
         {
             if(registerPhoneText.length() == 10) {
@@ -67,10 +99,107 @@ public class registerActivity extends AppCompatActivity {
 
         }
         else{
-            registerPasswordText.requestFocus();
+            registerRePasswordText.requestFocus();
             Toast.makeText(registerActivity.this,"Password Dosent match",Toast.LENGTH_LONG).show();
-            //Put text watcher for non matching passwords
+            registerRePasswordText.setError("Password doesn't match");
         }
+    }
+
+    public boolean validateRegEmail(){
+        String email = registerEmailText.getText().toString();
+
+        if (!email.trim().matches(emailPattern) && email.length() > 0 ) {
+
+            registerEmailText.setError("Please enter correct id");
+            registerEmailText.requestFocus();
+            return false;
+        }
+        else if (email.trim().isEmpty()){
+            registerEmailText.setError("Please enter correct id");
+            registerEmailText.requestFocus();
+            return false;
+
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    public boolean validateFirstName(){
+        String firstName = registerFirstNameText.getText().toString().trim();
+        if (firstName.isEmpty()){
+            registerFirstNameText.setError("Enter valid password");
+            registerFirstNameText.requestFocus();
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    public boolean validateLastName(){
+        String lastName = registerLastNameText.getText().toString().trim();
+        if (lastName.isEmpty()){
+            registerLastNameText.setError("Enter valid password");
+            registerLastNameText.requestFocus();
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    public boolean validateRegPassword(){
+        String password = registerPasswordText.getText().toString();
+
+        if (!password.matches(passwordPattern )&& password.length() > 0){
+            registerPasswordText.setError("should contain A-Z, a-z, 0-9, $/@/&");
+            registerPasswordText.requestFocus();
+            return false;
+        }
+        else if (password.trim().isEmpty()){
+            registerPasswordText.setError("Enter password");
+            registerPasswordText.requestFocus();
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    public boolean validateConfirmPassword(){
+        String confirmPass = registerRePasswordText.getText().toString().trim();
+
+        if (confirmPass.isEmpty()){
+            registerRePasswordText.setError("Enter password");
+            registerRePasswordText.requestFocus();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public boolean validatePhoneNum(){
+        String regPhoneNum = registerPhoneText.getText().toString().trim();
+        if(regPhoneNum.length() !=10 && regPhoneNum.length() > 0){
+            registerPhoneText.setError("Please enter correct no");
+            registerPhoneText.requestFocus();
+            return false;
+        }
+        else if (regPhoneNum.isEmpty()){
+            registerPhoneText.setError("Please enter no");
+            registerPhoneText.requestFocus();
+            return false;
+        }
+        else {
+            return true;
+        }
+
     }
 
 
@@ -87,6 +216,7 @@ public class registerActivity extends AppCompatActivity {
 
                 if (reRe.hashCode()  != reg.hashCode()){
                     registerRePasswordText.setError("Password doesn't match");
+                    passMatch = false;
                 }
 
 
@@ -98,6 +228,55 @@ public class registerActivity extends AppCompatActivity {
 
             }
         };
+
+    private class genTextWatcher implements TextWatcher{
+        private View view;
+
+        public genTextWatcher(View view){
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            switch (view.getId()){
+                case R.id.registerEmailText:
+                    validateRegEmail();
+                    break;
+
+                case R.id.registerFirstNameText:
+                    validateFirstName();
+                    break;
+
+                case R.id.registerLastNameText:
+                    validateLastName();
+                    break;
+
+                case R.id.registerPasswordText:
+                    validateRegPassword();
+                    break;
+
+                case R.id.registerRePassword:
+                    validateConfirmPassword();
+                    break;
+
+                case R.id.registerPhoneText:
+                    validatePhoneNum();
+                    break;
+
+            }
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    }
 
 
 

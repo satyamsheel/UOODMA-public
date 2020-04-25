@@ -10,4 +10,11 @@
     <string name="rePass">ReEnter Password</string>
     <string name="phone">Enter Phone Number</string>
     <string name="OTP">Enter OTP</string>
+    <string name="docName">DOCUMENT NAME</string>
+    <string name="docNo">DOCUMENT NUMBER</string>
+    <string name="issueDate">ISSUE DATE</string>
+    <string name="expDate">EXP DATE</string>
+    <string name="uploadBtn">UPLOAD</string>
+    <string name="userName">MIMI</string>
+    <string name="uin">UIN: 745965421834</string>
 </resources>
