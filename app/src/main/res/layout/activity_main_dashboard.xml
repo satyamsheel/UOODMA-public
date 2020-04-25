@@ -64,6 +64,7 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/edit_round"
             android:text="Send Data"
+            android:onClick="onSendRequest"
             android:textStyle="bold"
             android:textColor="@color/outline_color"
             android:textSize="20sp"/>

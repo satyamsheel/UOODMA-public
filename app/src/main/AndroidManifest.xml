@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".uploadDocuments"></activity>
+        <activity android:name=".sendData"></activity>
+        <activity android:name=".uploadDocuments" />
         <activity android:name=".editProfile" />
         <activity android:name=".phoneVerificationActivity" />
         <activity android:name=".mainDashboard" />

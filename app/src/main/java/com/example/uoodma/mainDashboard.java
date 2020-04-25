@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -18,6 +20,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
 DrawerLayout drawerLayout;
 NavigationView navigationView;
 Toolbar toolbar;
+Button sendData,deleteRequest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +28,8 @@ Toolbar toolbar;
         drawerLayout=findViewById(R.id.drawerLayout);
         navigationView=findViewById(R.id.nav_view);
         toolbar=findViewById(R.id.toolbar);
-
+        sendData=findViewById(R.id.sendData);
+        deleteRequest=findViewById(R.id.deleteRequest);
         setSupportActionBar(toolbar);
 
         Menu menu=navigationView.getMenu();
@@ -66,4 +70,10 @@ Toolbar toolbar;
           drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         }
+
+    public void onSendRequest(View view) {
+        Intent intent2=new Intent(mainDashboard.this,sendData.class);
+        startActivity(intent2);
     }
+
+}
