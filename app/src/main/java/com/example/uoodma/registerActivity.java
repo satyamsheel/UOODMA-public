@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,6 +33,11 @@ public class registerActivity extends AppCompatActivity {
         registerPhoneText=findViewById(R.id.registerPhoneText);
         button6=findViewById(R.id.button6);
         registerSpinner=findViewById(R.id.registerSpinner);
+
+        registerEmailText.addTextChangedListener(new GenericTextWatcher(registerEmailText));
+        registerPasswordText.addTextChangedListener(new GenericTextWatcher(registerPasswordText));
+        registerRePasswordText.addTextChangedListener(validateTextWatcher);
+        registerPhoneText.addTextChangedListener(new GenericTextWatcher(registerPhoneText));
 
         registerSpinner.setAdapter(new ArrayAdapter<String>(registerActivity.this,android.R.layout.
                 simple_spinner_dropdown_item,countryData.countryNames));
@@ -65,4 +72,34 @@ public class registerActivity extends AppCompatActivity {
             //Put text watcher for non matching passwords
         }
     }
+
+
+        private TextWatcher validateTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String reg = registerPasswordText.getText().toString();
+                String reRe = registerRePasswordText.getText().toString();
+
+                if (reRe.hashCode()  != reg.hashCode()){
+                    registerRePasswordText.setError("Password doesn't match");
+                }
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+
+
+
+
 }

@@ -43,6 +43,27 @@ public class loginActivity extends AppCompatActivity {
         button5=findViewById(R.id.button5);
         forgetpass=findViewById(R.id.forgetPass);
 
+
+        emailText.addTextChangedListener(new GenericTextWatcher(emailText));
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (emailText.getText().toString().isEmpty()){
+                    emailText.setError("Please Enter Email Id");
+                }
+                if (passwordText.getText().toString().isEmpty()){
+                    passwordText.setError("Please Enter Password");
+                }
+                else{
+                    firebaseLogin();
+                }
+            }
+        });
+
+    }
+
+    
         forgetpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +128,8 @@ public class loginActivity extends AppCompatActivity {
     }
 
 
-    public void firebaseLogin(View view) {
+    public void firebaseLogin() {
+
         mAuth.signInWithEmailAndPassword(emailText.getText().toString(), passwordText.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
