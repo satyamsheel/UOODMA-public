@@ -37,7 +37,7 @@
         android:layout_marginTop="5dp"/>
     <Button
         android:layout_width="260dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:id="@+id/sendOnline"
         android:layout_below="@id/idNumber"
         android:layout_marginTop="25dp"
@@ -49,10 +49,10 @@
         android:textSize="20sp"/>
     <Button
         android:layout_width="260dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:id="@+id/showQR"
         android:layout_below="@id/sendOnline"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/edit_round"
         android:text="Show QR"
@@ -61,10 +61,10 @@
         android:textSize="20sp"/>
     <Button
         android:layout_width="260dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:id="@+id/sendOffline"
         android:layout_below="@id/showQR"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/edit_round"
         android:text="Send Offline"
