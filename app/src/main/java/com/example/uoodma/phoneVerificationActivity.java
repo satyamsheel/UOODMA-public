@@ -3,11 +3,8 @@ package com.example.uoodma;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -32,7 +29,6 @@ public class phoneVerificationActivity extends AppCompatActivity {
     private String mVerificationId;
     private EditText inputOTPText;
     private FirebaseAuth mAuth;
-    private static final String TAG = "phoneVerificationActivity";
     private ProgressBar progressBar;
     private FirebaseAuth userAuth;
 
@@ -109,13 +105,8 @@ public class phoneVerificationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             registerWithEmail();
-                            //verification successful we will start the profile activity
-
 
                         } else {
-
-                            //verification unsuccessful.. display an error message
-
                             String message = "Somthing is wrong, we will fix it soon...";
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -139,10 +130,10 @@ public class phoneVerificationActivity extends AppCompatActivity {
         Intent intent1 = getIntent();
         userAuth.createUserWithEmailAndPassword(intent1.getStringExtra("Email"), intent1.getStringExtra("Password"))
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @SuppressLint("LongLogTag")
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
 
                             Intent intent = new Intent(phoneVerificationActivity.this, mainDashboard.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -150,9 +141,6 @@ public class phoneVerificationActivity extends AppCompatActivity {
 
                         } else {
                             // If sign in fails, display a message to the user.
-
-
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(phoneVerificationActivity.this, "fail",
                                     Toast.LENGTH_SHORT).show();
                         }
