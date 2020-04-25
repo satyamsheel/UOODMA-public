@@ -36,7 +36,7 @@
         android:layout_below="@id/name"
         android:layout_marginTop="5dp"/>
     <Button
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="80dp"
         android:id="@+id/sendOnline"
         android:layout_below="@id/idNumber"
@@ -48,7 +48,7 @@
         android:textColor="@color/outline_color"
         android:textSize="20sp"/>
     <Button
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="80dp"
         android:id="@+id/showQR"
         android:layout_below="@id/sendOnline"
@@ -60,7 +60,7 @@
         android:textColor="@color/outline_color"
         android:textSize="20sp"/>
     <Button
-        android:layout_width="300dp"
+        android:layout_width="260dp"
         android:layout_height="80dp"
         android:id="@+id/sendOffline"
         android:layout_below="@id/showQR"
