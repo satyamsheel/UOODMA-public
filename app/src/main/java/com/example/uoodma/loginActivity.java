@@ -75,7 +75,6 @@ public class loginActivity extends AppCompatActivity {
             }
         });
 
-
         forgetpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
