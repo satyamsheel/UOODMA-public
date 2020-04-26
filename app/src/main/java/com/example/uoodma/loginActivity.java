@@ -8,7 +8,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+
 import android.text.InputType;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +31,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class loginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "loginActivity";
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private final String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
 
     private EditText emailText,passwordText;
     private Button button5;
@@ -44,16 +51,23 @@ public class loginActivity extends AppCompatActivity {
         forgetpass=findViewById(R.id.forgetPass);
 
 
-        emailText.addTextChangedListener(new GenericTextWatcher(emailText));
+        emailText.addTextChangedListener(new gTextWatcher(emailText));
+        passwordText.addTextChangedListener(new gTextWatcher(passwordText));
 
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (emailText.getText().toString().isEmpty()){
-                    emailText.setError("Please Enter Email Id");
+//                if (emailText.getText().toString().isEmpty()){
+//                    emailText.setError("Please Enter Email Id");
+//                }
+//                if (passwordText.getText().toString().isEmpty()){
+//                    passwordText.setError("Please Enter Password");
+//                }
+                if (!validateEmail()){
+                        return;
                 }
-                if (passwordText.getText().toString().isEmpty()){
-                    passwordText.setError("Please Enter Password");
+                else if (!validatePassword()){
+                    return;
                 }
                 else{
                     firebaseLogin();
@@ -148,6 +162,75 @@ public class loginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public boolean validateEmail() {
+
+        String email = emailText.getText().toString();
+
+        if (!email.trim().matches(emailPattern) && email.length() > 0 ) {
+
+            emailText.setError("Please enter correct id");
+            emailText.requestFocus();
+            return false;
+        }
+        else if (email.trim().isEmpty()){
+            emailText.setError("Please enter id");
+            emailText.requestFocus();
+            return false;
+
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    public boolean validatePassword(){
+        String password = passwordText.getText().toString().trim();
+        if (password.isEmpty()){
+            passwordText.setError("Enter valid password");
+            passwordText.requestFocus();
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    private class gTextWatcher implements TextWatcher {
+
+        private View view;
+
+        public gTextWatcher(View view){
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            switch (view.getId()){
+
+                case R.id.emailText:
+                    validateEmail();
+                    break;
+
+                case  R.id.passwordText:
+                    validatePassword();
+                    break;
+            }
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
     }
 
 }
