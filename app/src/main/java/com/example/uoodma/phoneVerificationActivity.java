@@ -3,11 +3,8 @@ package com.example.uoodma;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -15,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.snackbar.Snackbar;
@@ -24,7 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class phoneVerificationActivity extends AppCompatActivity {
@@ -32,9 +34,9 @@ public class phoneVerificationActivity extends AppCompatActivity {
     private String mVerificationId;
     private EditText inputOTPText;
     private FirebaseAuth mAuth;
-    private static final String TAG = "phoneVerificationActivity";
     private ProgressBar progressBar;
     private FirebaseAuth userAuth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class phoneVerificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_verification);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         userAuth = FirebaseAuth.getInstance();
         inputOTPText = findViewById(R.id.inputOTPText);
         progressBar=findViewById(R.id.progressbar);
@@ -109,13 +112,8 @@ public class phoneVerificationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             registerWithEmail();
-                            //verification successful we will start the profile activity
-
 
                         } else {
-
-                            //verification unsuccessful.. display an error message
-
                             String message = "Somthing is wrong, we will fix it soon...";
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -139,20 +137,27 @@ public class phoneVerificationActivity extends AppCompatActivity {
         Intent intent1 = getIntent();
         userAuth.createUserWithEmailAndPassword(intent1.getStringExtra("Email"), intent1.getStringExtra("Password"))
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @SuppressLint("LongLogTag")
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            Intent intent = new Intent(phoneVerificationActivity.this, mainDashboard.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-
+                            Intent intentExtra = getIntent();
+                            String userId = mAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = db.collection("Users").document(userId);
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("EmailId", intentExtra.getStringExtra("Email"));
+                            user.put("Full Name", intentExtra.getStringExtra("First Name") + " " +
+                                    intentExtra.getStringExtra("Last Name"));
+                            user.put("Mobile Number", intentExtra.getStringExtra("Phone Number"));
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Intent intent = new Intent(phoneVerificationActivity.this, mainDashboard.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
-
-
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(phoneVerificationActivity.this, "fail",
                                     Toast.LENGTH_SHORT).show();
                         }

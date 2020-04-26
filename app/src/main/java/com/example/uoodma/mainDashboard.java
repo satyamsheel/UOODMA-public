@@ -14,22 +14,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class mainDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-DrawerLayout drawerLayout;
-NavigationView navigationView;
-Toolbar toolbar;
-Button sendData,deleteRequest;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    Button sendData, deleteRequest;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dashboard);
+
+        mAuth = FirebaseAuth.getInstance();
+
         drawerLayout=findViewById(R.id.drawerLayout);
         navigationView=findViewById(R.id.nav_view);
         toolbar=findViewById(R.id.toolbar);
         sendData=findViewById(R.id.sendData);
-        deleteRequest=findViewById(R.id.deleteRequest);
+        // deleteRequest=findViewById(R.id.deleteRequest);
         setSupportActionBar(toolbar);
 
         Menu menu=navigationView.getMenu();
@@ -66,6 +72,12 @@ Button sendData,deleteRequest;
                   Intent intent1=new Intent(mainDashboard.this,uploadDocuments.class);
                   startActivity(intent1);
                   break;
+              case R.id.navLogout:
+                  mAuth.signOut();
+                  Intent intentLogout = new Intent(mainDashboard.this, MainActivity.class);
+                  startActivity(intentLogout);
+                  finish();
+
           }
           drawerLayout.closeDrawer(GravityCompat.START);
             return true;
@@ -75,5 +87,6 @@ Button sendData,deleteRequest;
         Intent intent2=new Intent(mainDashboard.this,sendData.class);
         startActivity(intent2);
     }
+
 
 }
