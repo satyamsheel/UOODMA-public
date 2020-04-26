@@ -7,79 +7,100 @@
     android:layout_height="match_parent"
     tools:context=".mainDashboard"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="start"><androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".uploadDocuments">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".uploadDocuments">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar"/>
-
-    <com.mikhaellopez.circularimageview.CircularImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:src="@drawable/image"
-        android:layout_below="@+id/toolbar"
         app:civ_border_color="@color/lightPurple"
-        app:civ_border_width="4dp"
-        app:civ_shadow="true"
-        app:civ_shadow_radius="5dp"
-        app:civ_shadow_color="@color/lightPurple"
+        app:civ_border_width="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.164" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/profileImage"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="NAME"
-            android:textSize="25sp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/profileImage"
-            android:layout_marginTop="15dp"/>
-        <TextView
-            android:id="@+id/idNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="UID Number"
-            android:textSize="25sp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/name"
-            android:layout_marginTop="10dp"/>
-        <Button
-            android:layout_width="280dp"
-            android:layout_height="60dp"
-            android:id="@+id/sendData"
-            android:layout_below="@id/idNumber"
-            android:layout_marginTop="55dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/edit_round"
-            android:text="Send Data"
-            android:onClick="onSendRequest"
-            android:textStyle="bold"
-            android:textColor="@color/outline_color"
-            android:textSize="20sp"/>
-        <Button
-            android:layout_width="280dp"
-            android:layout_height="60dp"
-            android:id="@+id/deleteRequest"
-            android:layout_below="@id/sendData"
-            android:layout_marginTop="25dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/edit_round"
-            android:text="Delete Request"
-            android:textStyle="bold"
-            android:textColor="@color/outline_color"
-            android:textSize="20sp"/>
+        android:text="NAME"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <TextView
+        android:id="@+id/idNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/name"
+        android:layout_centerHorizontal="true"
+        android:text="UID Number"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <Button
+        android:id="@+id/sendData"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/idNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/edit_round"
+        android:onClick="onSendRequest"
+        android:shadowRadius="10"
+        android:text="Send Data"
+        android:textColor="@color/outline_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idNumber" />
+
+    <Button
+        android:id="@+id/deleteRequest"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/sendData"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_round"
+        android:shadowRadius="10"
+        android:text="Delete Request"
+        android:textColor="@color/outline_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendData"
+        app:layout_constraintVertical_bias="0.167" />
 
 
-    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

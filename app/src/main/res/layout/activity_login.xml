@@ -71,16 +71,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
+
     <TextView
         android:id="@+id/forgetPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="300dp"
         android:gravity="center"
         android:text="Forgot Password?"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5"
         android:textColor="#000"
-        android:textStyle="bold"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:layout_constraintVertical_bias="0.047" />
 </androidx.constraintlayout.widget.ConstraintLayout>

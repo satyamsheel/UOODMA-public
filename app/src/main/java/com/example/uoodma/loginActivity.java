@@ -75,7 +75,7 @@ public class loginActivity extends AppCompatActivity {
             }
         });
 
-    }
+
 
     
         forgetpass.setOnClickListener(new View.OnClickListener() {
