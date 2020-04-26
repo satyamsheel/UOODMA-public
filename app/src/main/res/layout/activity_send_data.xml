@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sendData">
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/profileImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/image"
+        app:civ_border_color="@color/lightPurple"
+        app:civ_border_width="4dp"
+        app:civ_shadow="true"
+        app:civ_shadow_radius="5dp"
+        app:civ_shadow_color="@color/lightPurple"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="NAME"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/profileImage"
+        android:layout_marginTop="15dp"/>
+    <TextView
+        android:id="@+id/idNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="UID Number"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/name"
+        android:layout_marginTop="5dp"/>
+    <Button
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:id="@+id/sendOnline"
+        android:layout_below="@id/idNumber"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_round"
+        android:text="Send Online"
+        android:textStyle="bold"
+        android:textColor="@color/outline_color"
+        android:textSize="20sp"/>
+    <Button
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:id="@+id/showQR"
+        android:layout_below="@id/sendOnline"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_round"
+        android:text="Show QR"
+        android:textStyle="bold"
+        android:textColor="@color/outline_color"
+        android:textSize="20sp"/>
+    <Button
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:id="@+id/sendOffline"
+        android:layout_below="@id/showQR"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_round"
+        android:text="Send Offline"
+        android:textStyle="bold"
+        android:textColor="@color/outline_color"
+        android:textSize="20sp"/>
+
+</RelativeLayout>

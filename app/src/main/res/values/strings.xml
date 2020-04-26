@@ -10,6 +10,7 @@
     <string name="rePass">ReEnter Password</string>
     <string name="phone">Enter Phone Number</string>
     <string name="OTP">Enter OTP</string>
+
     <string name="docName">DOCUMENT NAME</string>
     <string name="docNo">DOCUMENT NUMBER</string>
     <string name="issueDate">ISSUE DATE</string>
@@ -17,4 +18,14 @@
     <string name="uploadBtn">UPLOAD</string>
     <string name="userName">MIMI</string>
     <string name="uin">UIN: 745965421834</string>
+
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="driving_license">Driving License</string>
+    <string name="upload">Upload</string>
+    <string name="aadhar_card">Aadhar Card</string>
+    <string name="birth_certificate">Birth Certificate</string>
+    <string name="pan_card">Pan Card</string>
+    <string name="save_changes">Save Changes</string>
+
 </resources>
