@@ -75,9 +75,7 @@ public class loginActivity extends AppCompatActivity {
             }
         });
 
-    }
 
-    
         forgetpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +85,7 @@ public class loginActivity extends AppCompatActivity {
         progressDialog=new ProgressDialog(this);
 
     }
+
 
     private void showRecoverPasswordDialog() {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
