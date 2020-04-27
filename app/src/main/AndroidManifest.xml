@@ -14,7 +14,8 @@
         <activity android:name=".MyProfile" />
 
         <activity android:name=".sendData"></activity>
-        <activity android:name=".uploadDocuments" />
+        <activity android:name=".uploadDocuments"
+            android:parentActivityName=".mainDashboard"/>
         <activity android:name=".editProfile" />
 
         <activity android:name=".phoneVerificationActivity" />
