@@ -51,7 +51,7 @@
 
     <Button
         android:id="@+id/sendOnline"
-        android:layout_width="260dp"
+        android:layout_width="240dp"
         android:layout_height="60dp"
         android:layout_below="@id/idNumber"
         android:layout_centerHorizontal="true"
@@ -68,7 +68,7 @@
 
     <Button
         android:id="@+id/showQR"
-        android:layout_width="260dp"
+        android:layout_width="240dp"
         android:layout_height="60dp"
         android:layout_below="@id/sendOnline"
         android:layout_centerHorizontal="true"
@@ -85,7 +85,7 @@
 
     <Button
         android:id="@+id/sendOffline"
-        android:layout_width="260dp"
+        android:layout_width="240dp"
         android:layout_height="60dp"
         android:layout_below="@id/showQR"
         android:layout_centerHorizontal="true"
