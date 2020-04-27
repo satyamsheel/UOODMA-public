@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".mainDashboard"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"><androidx.constraintlayout.widget.ConstraintLayout
+    tools:openDrawer="start">
+    <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".uploadDocuments">
