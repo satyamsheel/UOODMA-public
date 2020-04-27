@@ -10,6 +10,7 @@
     <string name="rePass">ReEnter Password</string>
     <string name="phone">Enter Phone Number</string>
     <string name="OTP">Enter OTP</string>
+    <string name="Full_name">Enter Full Name</string>
 
     <string name="docName">DOCUMENT NAME</string>
     <string name="docNo">DOCUMENT NUMBER</string>
