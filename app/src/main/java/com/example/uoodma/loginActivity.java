@@ -34,7 +34,7 @@ public class loginActivity extends AppCompatActivity {
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private final String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
 
-    private EditText emailText,passwordText;
+    private EditText emailText, passwordText;
     private Button button5;
     TextView forgetpass,phoneLogin;
     ProgressDialog progressDialog,progressDialog2;
@@ -44,6 +44,7 @@ public class loginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
+
         phoneLogin = findViewById(R.id.phoneLogin);
         phoneLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,7 @@ public class loginActivity extends AppCompatActivity {
         forgetpass=findViewById(R.id.forgetPass);
 
 
+
         emailText.addTextChangedListener(new gTextWatcher(emailText));
         passwordText.addTextChangedListener(new gTextWatcher(passwordText));
 
@@ -70,13 +72,11 @@ public class loginActivity extends AppCompatActivity {
 //                if (passwordText.getText().toString().isEmpty()){
 //                    passwordText.setError("Please Enter Password");
 //                }
-                if (!validateEmail()){
-                        return;
-                }
-                else if (!validatePassword()){
+                if (!validateEmail()) {
                     return;
-                }
-                else{
+                } else if (!validatePassword()) {
+                    return;
+                } else {
                     firebaseLogin();
                 }
             }
@@ -88,7 +88,7 @@ public class loginActivity extends AppCompatActivity {
                 showRecoverPasswordDialog();
             }
         });
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
 
     }
 
@@ -96,24 +96,24 @@ public class loginActivity extends AppCompatActivity {
 
 
     private void showRecoverPasswordDialog() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Recover Password");
 
-        LinearLayout linearLayout=new LinearLayout(this);
-        final EditText emailEt=new EditText(this);
+        LinearLayout linearLayout = new LinearLayout(this);
+        final EditText emailEt = new EditText(this);
         emailEt.setHint("Registered Email");
         emailEt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         emailEt.setMinEms(16);
 
         linearLayout.addView(emailEt);
-        linearLayout.setPadding(10,10,10,10);
+        linearLayout.setPadding(10, 10, 10, 10);
 
         builder.setView(linearLayout);
 
         builder.setPositiveButton("Recover", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String email=emailEt.getText().toString().trim();
+                String email = emailEt.getText().toString().trim();
                 beginRecovery(email);
             }
         });
@@ -133,17 +133,17 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressDialog.dismiss();
-                if (task.isSuccessful()){
-                    Toast.makeText(loginActivity.this,"Email Sent",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(loginActivity.this,"Failed!!",Toast.LENGTH_SHORT).show();
+                if (task.isSuccessful()) {
+                    Toast.makeText(loginActivity.this, "Email Sent", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(loginActivity.this, "Failed!!", Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressDialog.dismiss();
-                Toast.makeText(loginActivity.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(loginActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -189,10 +189,10 @@ public class loginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                           Toast.makeText(loginActivity.this,"Welcome Back",Toast.LENGTH_LONG).show();
-                           Intent intent =new Intent(loginActivity.this,mainDashboard.class);
-                           startActivity(intent);
-                           finish();
+                            Toast.makeText(loginActivity.this, "Welcome Back", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(loginActivity.this, mainDashboard.class);
+                            startActivity(intent);
+                            finish();
 
                         } else {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -208,42 +208,39 @@ public class loginActivity extends AppCompatActivity {
 
         String email = emailText.getText().toString();
 
-        if (!email.trim().matches(emailPattern) && email.length() > 0 ) {
+        if (!email.trim().matches(emailPattern) && email.length() > 0) {
 
             emailText.setError("Please enter correct id");
             emailText.requestFocus();
             return false;
-        }
-        else if (email.trim().isEmpty()){
+        } else if (email.trim().isEmpty()) {
             emailText.setError("Please enter id");
             emailText.requestFocus();
             return false;
 
-        }
-        else {
+        } else {
             return true;
         }
 
     }
 
-    public boolean validatePassword(){
+    public boolean validatePassword() {
         String password = passwordText.getText().toString().trim();
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             passwordText.setError("Enter valid password");
             passwordText.requestFocus();
             return false;
-        }
-        else {
+        } else {
             return true;
         }
-
     }
+
 
     private class gTextWatcher implements TextWatcher {
 
         private View view;
 
-        public gTextWatcher(View view){
+        public gTextWatcher(View view) {
             this.view = view;
         }
 
@@ -254,13 +251,13 @@ public class loginActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            switch (view.getId()){
+            switch (view.getId()) {
 
                 case R.id.emailText:
                     validateEmail();
                     break;
 
-                case  R.id.passwordText:
+                case R.id.passwordText:
                     validatePassword();
                     break;
             }
@@ -274,3 +271,4 @@ public class loginActivity extends AppCompatActivity {
     }
 
 }
+

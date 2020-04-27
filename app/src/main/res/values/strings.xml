@@ -25,6 +25,7 @@
     <string name="upload">Upload</string>
     <string name="aadhar_card">Aadhar Card</string>
     <string name="birth_certificate">Birth Certificate</string>
+    <string name="higher_secondary_edu_certi">Higher Secondary Education Certificate-10th</string>
     <string name="pan_card">Pan Card</string>
     <string name="save_changes">Save Changes</string>
 
