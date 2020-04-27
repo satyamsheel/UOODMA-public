@@ -83,6 +83,7 @@ public class loginActivity extends AppCompatActivity {
 
     }
 
+
     private void showRecoverPasswordDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Recover Password");

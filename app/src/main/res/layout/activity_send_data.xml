@@ -1,75 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".sendData">
-    <com.mikhaellopez.circularimageview.CircularImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:src="@drawable/image"
         app:civ_border_color="@color/lightPurple"
-        app:civ_border_width="4dp"
-        app:civ_shadow="true"
-        app:civ_shadow_radius="5dp"
-        app:civ_shadow_color="@color/lightPurple"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        app:civ_border_width="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.091" />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/profileImage"
+        android:layout_centerHorizontal="true"
         android:text="NAME"
         android:textSize="25sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/profileImage"
-        android:layout_marginTop="15dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage"
+        app:layout_constraintVertical_bias="0.014" />
+
     <TextView
         android:id="@+id/idNumber"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
         android:text="UID Number"
         android:textSize="25sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/name"
-        android:layout_marginTop="5dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
     <Button
+        android:id="@+id/sendOnline"
         android:layout_width="260dp"
         android:layout_height="60dp"
-        android:id="@+id/sendOnline"
         android:layout_below="@id/idNumber"
-        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
         android:background="@drawable/edit_round"
         android:text="Send Online"
-        android:textStyle="bold"
         android:textColor="@color/outline_color"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idNumber" />
+
     <Button
+        android:id="@+id/showQR"
         android:layout_width="260dp"
         android:layout_height="60dp"
-        android:id="@+id/showQR"
         android:layout_below="@id/sendOnline"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
         android:background="@drawable/edit_round"
         android:text="Show QR"
-        android:textStyle="bold"
         android:textColor="@color/outline_color"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendOnline" />
+
     <Button
+        android:id="@+id/sendOffline"
         android:layout_width="260dp"
         android:layout_height="60dp"
-        android:id="@+id/sendOffline"
         android:layout_below="@id/showQR"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
         android:background="@drawable/edit_round"
         android:text="Send Offline"
-        android:textStyle="bold"
         android:textColor="@color/outline_color"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showQR"
+        app:layout_constraintVertical_bias="0.0" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
