@@ -36,8 +36,8 @@ public class loginActivity extends AppCompatActivity {
 
     private EditText emailText, passwordText;
     private Button button5;
-    TextView forgetpass;
-    ProgressDialog progressDialog;
+    TextView forgetpass,phoneLogin;
+    ProgressDialog progressDialog,progressDialog2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,19 @@ public class loginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
 
-        emailText = findViewById(R.id.emailText);
-        passwordText = findViewById(R.id.passwordText);
-        button5 = findViewById(R.id.button5);
-        forgetpass = findViewById(R.id.forgetPass);
+        phoneLogin = findViewById(R.id.phoneLogin);
+        phoneLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPhoneLoginDialog();
+            }
+        });
+        progressDialog2=new ProgressDialog(this);
+        emailText=findViewById(R.id.emailText);
+        passwordText=findViewById(R.id.passwordText);
+        button5=findViewById(R.id.button5);
+        forgetpass=findViewById(R.id.forgetPass);
+
 
 
         emailText.addTextChangedListener(new gTextWatcher(emailText));
@@ -82,6 +91,8 @@ public class loginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
     }
+
+
 
 
     private void showRecoverPasswordDialog() {
@@ -136,7 +147,40 @@ public class loginActivity extends AppCompatActivity {
             }
         });
     }
+    private void showPhoneLoginDialog() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Login Using Phone Number");
 
+        LinearLayout phoneLogin=new LinearLayout(this);
+        final EditText phoneEt=new EditText(this);
+        phoneEt.setHint("Registered Phone Number");
+        phoneEt.setInputType(InputType.TYPE_CLASS_PHONE);
+        phoneEt.setMinEms(12);
+        phoneLogin.addView(phoneEt);
+        phoneLogin.setPadding(10,10,10,10);
+
+        builder.setView(phoneLogin);
+
+        builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String phone=phoneEt.getText().toString().trim();
+                beginLogin(phone);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void beginLogin(String phone) {
+        progressDialog2.setMessage("Logging In");
+        progressDialog2.show();
+    }
 
     public void firebaseLogin() {
 
