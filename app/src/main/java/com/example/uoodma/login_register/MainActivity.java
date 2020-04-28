@@ -1,4 +1,4 @@
-package com.example.uoodma;
+package com.example.uoodma.login_register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.uoodma.R;
 
 public class MainActivity extends AppCompatActivity {
      Button button3,button4;
@@ -21,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onLoginCLick(View view) {
-        Intent intent =new Intent(MainActivity.this,loginActivity.class);
+        Intent intent = new Intent(MainActivity.this, loginActivity.class);
         startActivity(intent);
     }
 
     public void onRegisterCLick(View view) {
-        Intent intent =new Intent(MainActivity.this,registerActivity.class);
+        Intent intent = new Intent(MainActivity.this, registerActivity.class);
         startActivity(intent);
     }
 }

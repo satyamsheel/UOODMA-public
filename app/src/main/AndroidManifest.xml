@@ -18,10 +18,10 @@
             android:parentActivityName=".mainDashboard"/>
         <activity android:name=".editProfile" />
 
-        <activity android:name=".phoneVerificationActivity" />
+        <activity android:name=".login_register.phoneVerificationActivity" />
         <activity android:name=".mainDashboard" />
-        <activity android:name=".registerActivity" />
-        <activity android:name=".loginActivity" />
+        <activity android:name=".login_register.registerActivity" />
+        <activity android:name=".login_register.loginActivity" />
         <activity android:name=".splashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".login_register.MainActivity" />
     </application>
 
 </manifest>

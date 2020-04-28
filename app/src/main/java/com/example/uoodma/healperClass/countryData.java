@@ -1,4 +1,4 @@
-package com.example.uoodma;
+package com.example.uoodma.healperClass;
 
 public class countryData {
     public static final String[] countryNames = {"Afghanistan", "Albania",

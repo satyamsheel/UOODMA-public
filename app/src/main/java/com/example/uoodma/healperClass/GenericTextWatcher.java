@@ -1,17 +1,15 @@
-package com.example.uoodma;
+package com.example.uoodma.healperClass;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 
 public class GenericTextWatcher implements TextWatcher {
 
     private View view;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private final String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
-    loginActivity loginActivity;
+    com.example.uoodma.login_register.loginActivity loginActivity;
 
     public  GenericTextWatcher(View view){
         this.view = view;

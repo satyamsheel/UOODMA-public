@@ -2,16 +2,12 @@ package com.example.uoodma;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import android.os.Bundle;
 
+import com.example.uoodma.healperClass.PagerAdapter;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
 
 public class uploadDocuments extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 

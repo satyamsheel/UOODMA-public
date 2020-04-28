@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".phoneVerificationActivity">
+    tools:context=".login_register.phoneVerificationActivity">
 
     <TextView
         android:id="@+id/phoneNumberEndingWith"
@@ -44,7 +44,7 @@
             android:imeOptions="actionDone"
             android:inputType="phone"
             android:maxLength="6"
-            android:textAlignment="center" />
+            android:gravity="center" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,7 +60,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputOTP" />
 

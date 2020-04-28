@@ -1,4 +1,4 @@
-package com.example.uoodma;
+package com.example.uoodma.login_register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,31 +16,68 @@ import android.text.InputType;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.uoodma.R;
+import com.example.uoodma.healperClass.countryData;
+import com.example.uoodma.mainDashboard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 public class loginActivity extends AppCompatActivity {
+    EditText emailText, passwordText;
     private FirebaseAuth mAuth;
     private static final String TAG = "loginActivity";
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private final String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
-
-
-    EditText emailText,passwordText,phoneNumber,otpText;
-    Button button5,phoneLogin,button8;
+    Button button5, phoneLogin;
+    private String mVerificationId;
     TextView forgetpass;
     ProgressDialog progressDialog;
+    //    EditText bottomSheetOTPText;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
+            String code = phoneAuthCredential.getSmsCode();
+
+            if (code != null) {
+                // bottomSheetOTPText.setText(code);
+                //verifying the code
+                verifyVerificationCode(code);
+            }
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            Toast.makeText(loginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            mVerificationId = s;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +90,7 @@ public class loginActivity extends AppCompatActivity {
         passwordText=findViewById(R.id.passwordText);
         button5=findViewById(R.id.button5);
         forgetpass=findViewById(R.id.forgetPass);
-
-
+//        bottomSheetOTPText=findViewById(R.id.bottomSheetOTPText);
 
         emailText.addTextChangedListener(new gTextWatcher(emailText));
         passwordText.addTextChangedListener(new gTextWatcher(passwordText));
@@ -91,13 +127,72 @@ public class loginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(loginActivity.this);
                 bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog);
-                phoneNumber=bottomSheetDialog.findViewById(R.id.phoneNumber);
-                otpText=bottomSheetDialog.findViewById(R.id.otpText);
-                button8=bottomSheetDialog.findViewById(R.id.button8);
-               bottomSheetDialog.show();
+                bottomSheetDialog.show();
+
+                TextInputLayout bottomSheetNumberInput = bottomSheetDialog.findViewById(R.id.bottomSheetNumberInput);
+                final TextInputLayout bottomSheetOTPInput = bottomSheetDialog.findViewById(R.id.bottonSheetOTPInput);
+                final EditText bottomSheetPhoneNumber = bottomSheetDialog.findViewById(R.id.bottomSheetPhoneNumber);
+                final EditText bottomSheetOTPText = bottomSheetDialog.findViewById(R.id.bottomSheetOTPText);
+                Button button8 = bottomSheetDialog.findViewById(R.id.button8);
+
+                final Spinner registerSpinner = bottomSheetDialog.findViewById(R.id.registerSpinner);
+                registerSpinner.setAdapter(new ArrayAdapter<String>(loginActivity.this, android.R.layout.
+                        simple_spinner_dropdown_item, countryData.countryNames));
+
+                bottomSheetOTPInput.setVisibility(View.GONE);
+
+                button8.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String code = countryData.countryAreaCodes[registerSpinner.getSelectedItemPosition()];
+                        String number = bottomSheetPhoneNumber.getText().toString();
+                        String phoneNumberFinal = "+" + code + number;
+                        bottomSheetOTPInput.setVisibility(View.VISIBLE);
+                        sendVerificationCode(phoneNumberFinal);
+
+                        String code1 = bottomSheetOTPText.getText().toString().trim();
+                        if (code1.isEmpty() || code1.length() < 6) {
+                            bottomSheetOTPText.requestFocus();
+                            return;
+                        } else {
+                            sendVerificationCode(phoneNumberFinal);
+                        }
+
+                    }
+                });
             }
         });
 
+    }
+
+    private void sendVerificationCode(String phoneNumberFinal) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumberFinal,
+                60,
+                TimeUnit.SECONDS,
+                TaskExecutors.MAIN_THREAD,
+                mCallbacks);
+    }
+
+    private void verifyVerificationCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(loginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(loginActivity.this, mainDashboard.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(loginActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
 

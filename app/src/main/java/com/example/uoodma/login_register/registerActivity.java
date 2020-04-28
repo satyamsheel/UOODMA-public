@@ -1,4 +1,4 @@
-package com.example.uoodma;
+package com.example.uoodma.login_register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.uoodma.R;
+import com.example.uoodma.healperClass.countryData;
 
 public class registerActivity extends AppCompatActivity {
 
