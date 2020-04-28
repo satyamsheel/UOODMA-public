@@ -2,6 +2,7 @@ package com.example.uoodma.login_register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,6 +23,7 @@ public class registerActivity extends AppCompatActivity {
             registerPasswordText, registerRePasswordText, registerPhoneText;
     private Button button6;
     private Spinner registerSpinner;
+    ProgressDialog dialog;
 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private final String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
@@ -45,6 +47,10 @@ public class registerActivity extends AppCompatActivity {
         registerPasswordText.addTextChangedListener(new genTextWatcher(registerPasswordText));
         registerRePasswordText.addTextChangedListener(validateTextWatcher);
         registerPhoneText.addTextChangedListener(new genTextWatcher(registerPhoneText));
+        dialog= new ProgressDialog(this);
+        dialog.setTitle("Please Wait");
+        dialog.setMessage("Registering");
+        dialog.setCanceledOnTouchOutside(true);
 
         registerSpinner.setAdapter(new ArrayAdapter<String>(registerActivity.this, android.R.layout.
                 simple_spinner_dropdown_item, countryData.countryNames));
@@ -67,7 +73,7 @@ public class registerActivity extends AppCompatActivity {
                 } else {
                     onRegistrationRequest();
                 }
-
+          dialog.show();
             }
         });
 

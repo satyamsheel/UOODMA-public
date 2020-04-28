@@ -52,7 +52,7 @@ public class loginActivity extends AppCompatActivity {
     Button button5, phoneLogin;
     private String mVerificationId;
     TextView forgetpass;
-    ProgressDialog progressDialog;
+    ProgressDialog progressDialog,progressDialog1;
     //    EditText bottomSheetOTPText;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
@@ -111,6 +111,7 @@ public class loginActivity extends AppCompatActivity {
                 } else {
                     firebaseLogin();
                 }
+               progressDialog1.show();
             }
         });
 
@@ -121,7 +122,10 @@ public class loginActivity extends AppCompatActivity {
             }
         });
         progressDialog = new ProgressDialog(this);
-
+        progressDialog1 = new ProgressDialog(this);
+        progressDialog1.setTitle("Please Wait");
+        progressDialog1.setMessage("Logging In");
+        progressDialog1.setCanceledOnTouchOutside(true);
         phoneLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,13 +161,15 @@ public class loginActivity extends AppCompatActivity {
                         } else {
                             sendVerificationCode(phoneNumberFinal);
                         }
-
+                        progressDialog1.show();
                     }
                 });
             }
         });
 
     }
+
+
 
     private void sendVerificationCode(String phoneNumberFinal) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
