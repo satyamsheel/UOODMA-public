@@ -1,17 +1,27 @@
 package com.example.uoodma;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uoodma.login_register.phoneVerificationActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,6 +35,9 @@ public class editProfile extends AppCompatActivity {
     EditText editProfileEmailText, editProfileFullNameText, editProfilePhoneNumberText, editProfileAlternatePhoneNumberText,
             fullAddressText, editProfileCityText, editProfileStateText, editProfilePinCodeText;
     Button editProfileSaveChanges;
+    TextView userVerificationText, verificationText;
+
+    final FirebaseUser user = mAuth.getCurrentUser();
 
 
     @Override
@@ -32,6 +45,7 @@ public class editProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        Log.d("___", "onCreate: ");
         editProfileEmailText = findViewById(R.id.editProfileEmailText);
         editProfileFullNameText = findViewById(R.id.editProfileFullNameText);
         editProfilePhoneNumberText = findViewById(R.id.editProfilePhoneNumberText);
@@ -41,7 +55,10 @@ public class editProfile extends AppCompatActivity {
         editProfileStateText = findViewById(R.id.editProfileStateText);
         editProfilePinCodeText = findViewById(R.id.editProfilePinCodeText);
         editProfileSaveChanges = findViewById(R.id.editProfileSaveChanges);
+        userVerificationText = findViewById(R.id.verifyUserText);
+        verificationText = findViewById(R.id.verificationText);
 
+        Log.d("___", "onCreate: ");
 
         editProfileSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +74,44 @@ public class editProfile extends AppCompatActivity {
                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(editProfile.this, "Sucess", Toast.LENGTH_LONG).show();
+                        Toast.makeText(editProfile.this, "Success", Toast.LENGTH_LONG).show();
                     }
                 });
             }
         });
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        user.reload();
+
+        if (user.isEmailVerified()){
+                userVerificationText.setText("Verified User");
+                userVerificationText.setTextColor(Color.parseColor("#007600"));
+                verificationText.setVisibility(View.GONE);
+            }
+            else {
+                userVerificationText.setText("Email is not verified");
+                userVerificationText.setTextColor(Color.parseColor("#ff0000"));
+                verificationText.setVisibility(View.VISIBLE);
+                verificationText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("____", "onClick: clicked");
+                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(editProfile.this, "Verification link has been sent", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+
+        }
     }
 }
 

@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".editProfile">
 
+    <TextView
+        android:id="@+id/verifyUserText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/not_verified"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileEmail"
+        app:layout_constraintStart_toStartOf="@+id/editProfileEmail" />
+
+    <TextView
+        android:id="@+id/verificationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/click_here_to_verify"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileEmail"
+        app:layout_constraintEnd_toEndOf="@+id/editProfileEmail" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editProfileEmail"
