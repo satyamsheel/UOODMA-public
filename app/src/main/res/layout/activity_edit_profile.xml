@@ -196,7 +196,7 @@
             android:id="@+id/editProfilePinCodeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/Full_name"
+            android:hint="Enter Pin Code"
             android:imeOptions="actionDone"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
