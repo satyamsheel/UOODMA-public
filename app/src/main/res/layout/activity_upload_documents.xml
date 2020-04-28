@@ -8,6 +8,15 @@
 
     tools:context=".MainActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/docToolbar"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        app:title="@string/upoad_doc"
+        android:theme="@style/ToolBarStyle"
+        app:subtitleTextColor="#ffff"
+        android:layout_height="?attr/actionBarSize"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
