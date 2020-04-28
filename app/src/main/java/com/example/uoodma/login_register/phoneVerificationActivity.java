@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -19,9 +20,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,6 +43,8 @@ public class phoneVerificationActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth userAuth;
     FirebaseFirestore db;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,22 +120,8 @@ public class phoneVerificationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             registerWithEmail();
-
                         } else {
-                            String message = "Somthing is wrong, we will fix it soon...";
-
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                message = "Invalid code entered...";
-                            }
-
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
-                            snackbar.setAction("Dismiss", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                }
-                            });
-                            snackbar.show();
+                            Toast.makeText(phoneVerificationActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -137,11 +129,16 @@ public class phoneVerificationActivity extends AppCompatActivity {
 
     public void registerWithEmail() {
         Intent intent1 = getIntent();
-        userAuth.createUserWithEmailAndPassword(intent1.getStringExtra("Email"), intent1.getStringExtra("Password"))
+        String email = intent1.getStringExtra("Email");
+        String password = intent1.getStringExtra("Password");
+        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+
+        mAuth.getCurrentUser().linkWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             Intent intentExtra = getIntent();
                             String userId = mAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = db.collection("Users").document(userId);
@@ -163,10 +160,7 @@ public class phoneVerificationActivity extends AppCompatActivity {
                             Toast.makeText(phoneVerificationActivity.this, "fail",
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 });
     }
-
 }

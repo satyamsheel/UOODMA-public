@@ -8,15 +8,25 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.TextPaint;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.uoodma.login_register.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class mainDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -24,6 +34,9 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     Toolbar toolbar;
     Button sendData, deleteRequest;
     private FirebaseAuth mAuth;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +48,6 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         navigationView=findViewById(R.id.nav_view);
         toolbar=findViewById(R.id.toolbar);
         sendData=findViewById(R.id.sendData);
-        // deleteRequest=findViewById(R.id.deleteRequest);
         setSupportActionBar(toolbar);
 
         Menu menu=navigationView.getMenu();
@@ -48,6 +60,37 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.navDashboard);
+
+
+        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
+
+        if (isFirstRun) {
+            SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            String email = prefs.getString("Email", " ");
+            String password = prefs.getString("Password", " ");
+            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+            // Code to run once
+            mAuth.getCurrentUser().linkWithCredential(credential)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+
+                                FirebaseUser user = task.getResult().getUser();
+                                Toast.makeText(mainDashboard.this, "Merged", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Toast.makeText(mainDashboard.this, "Failed to merge" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+            SharedPreferences.Editor editor = wmbPreference.edit();
+            editor.putBoolean("FIRSTRUN", false);
+            editor.apply();
+        }
+
     }
 
     @Override
