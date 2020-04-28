@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".editProfile">
 
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/registerEmail"
+        android:id="@+id/editProfileEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -21,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/registeredEmailId"
+            android:id="@+id/editProfileEmailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
@@ -31,7 +32,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/registerFirstName"
+        android:id="@+id/editProfileFullName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,21 +43,20 @@
         app:boxStrokeColor="@color/outline_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerEmail">
+        app:layout_constraintTop_toBottomOf="@+id/editProfileEmail">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/registerFirstNameText"
+            android:id="@+id/editProfileFullNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/firstName"
-            android:imeActionLabel="@string/password"
+            android:hint="@string/Full_name"
             android:imeOptions="actionDone"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/registerLastName"
+        android:id="@+id/editProfilePhoneNumber"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -67,100 +67,154 @@
         app:boxStrokeColor="@color/outline_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerFirstName">
+        app:layout_constraintTop_toBottomOf="@+id/editProfileFullName">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/registerLastNameText"
+            android:id="@+id/editProfilePhoneNumberText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/lastName"
-            android:imeActionLabel="@string/password"
+            android:hint="Mobile Number"
+            android:imeOptions="actionDone"
+            android:inputType="phone" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editProfileAlternatePhoneNumber"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:selectAllOnFocus="true"
+        app:boxStrokeColor="@color/outline_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfilePhoneNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editProfileAlternatePhoneNumberText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternate Phone Number"
+            android:inputType="phone" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editProfileFullAddress"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:selectAllOnFocus="true"
+        app:boxStrokeColor="@color/outline_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileAlternatePhoneNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fullAddressText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Full Address"
             android:imeOptions="actionDone"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/registerPassword"
+        android:id="@+id/editProfileCity"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginLeft="220dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:selectAllOnFocus="true"
-        app:boxStrokeColor="@color/outline_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerLastName">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/registerPasswordText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:imeActionLabel="@string/password"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/registerRePassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:selectAllOnFocus="true"
-        app:boxStrokeColor="@color/outline_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPassword">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/registerRePasswordText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/rePass"
-            android:imeActionLabel="@string/password"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/registerPhone"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:layout_marginLeft="90dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="220dp"
         android:layout_marginRight="24dp"
         android:selectAllOnFocus="true"
         app:boxStrokeColor="@color/outline_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerRePassword">
+        app:layout_constraintTop_toBottomOf="@+id/editProfileFullAddress">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editProfileCityText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editProfileState"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="220dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:selectAllOnFocus="true"
+        app:boxStrokeColor="@color/outline_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileFullAddress">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editProfileStateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="State"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editProfilePinCode"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:selectAllOnFocus="true"
+        app:boxStrokeColor="@color/outline_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileCity">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editProfilePinCodeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Full_name"
+            android:imeOptions="actionDone"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <Button
-        android:id="@+id/saveChanges"
+        android:id="@+id/editProfileSaveChanges"
         android:layout_width="130dp"
         android:layout_height="39dp"
         android:background="#000000"
         android:shadowRadius="10"
-
         android:text="@string/save_changes"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registerPhone"
+        app:layout_constraintTop_toBottomOf="@id/editProfilePinCode"
         app:layout_constraintVertical_bias="0.254" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
     <string name="rePass">ReEnter Password</string>
     <string name="phone">Enter Phone Number</string>
     <string name="OTP">Enter OTP</string>
+    <string name="Full_name">Enter Full Name</string>
 
     <string name="docName">DOCUMENT NAME</string>
     <string name="docNo">DOCUMENT NUMBER</string>
@@ -25,7 +26,9 @@
     <string name="upload">Upload</string>
     <string name="aadhar_card">Aadhar Card</string>
     <string name="birth_certificate">Birth Certificate</string>
+    <string name="higher_secondary_edu_certi">Higher Secondary Education Certificate-10th</string>
     <string name="pan_card">Pan Card</string>
     <string name="save_changes">Save Changes</string>
+    <string name="upoad_doc">Upload Documents</string>
 
 </resources>
