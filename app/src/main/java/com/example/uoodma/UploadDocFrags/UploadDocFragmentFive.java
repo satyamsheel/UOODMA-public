@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,9 @@ public class UploadDocFragmentFive extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         uploadDocAdapter = new UploadDocAdapter(view.getContext(), docList);
         recyclerView.setAdapter(uploadDocAdapter);
+        recyclerView.addItemDecoration(new
+                DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL));
         return view;
     }
 
