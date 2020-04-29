@@ -115,6 +115,11 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                   Intent intent1=new Intent(mainDashboard.this,uploadDocuments.class);
                   startActivity(intent1);
                   break;
+              case R.id.navProfile:
+                  Intent intent3=new Intent(mainDashboard.this,MyProfile.class);
+                  startActivity(intent3);
+                  break;
+
               case R.id.navLogout:
                   mAuth.signOut();
                   Intent intentLogout = new Intent(mainDashboard.this, MainActivity.class);
