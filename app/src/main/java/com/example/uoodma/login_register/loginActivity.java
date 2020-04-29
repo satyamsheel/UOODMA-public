@@ -157,6 +157,7 @@ public class loginActivity extends AppCompatActivity {
                         String code1 = bottomSheetOTPText.getText().toString().trim();
                         if (code1.isEmpty() || code1.length() < 6) {
                             bottomSheetOTPText.requestFocus();
+                            progressDialog1.dismiss();
                             return;
                         } else {
                             sendVerificationCode(phoneNumberFinal);
@@ -194,8 +195,10 @@ public class loginActivity extends AppCompatActivity {
                             Intent intent = new Intent(loginActivity.this, mainDashboard.class);
                             startActivity(intent);
                             finish();
+                            progressDialog1.dismiss();
                         } else {
                             Toast.makeText(loginActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                            progressDialog1.dismiss();
                         }
                     }
                 });
@@ -271,11 +274,12 @@ public class loginActivity extends AppCompatActivity {
                             Intent intent = new Intent(loginActivity.this, mainDashboard.class);
                             startActivity(intent);
                             finish();
+                            progressDialog1.dismiss();
 
                         } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(loginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            progressDialog1.dismiss();
 
                         }
                     }

@@ -147,6 +147,10 @@ public class phoneVerificationActivity extends AppCompatActivity {
                             user.put("Full Name", intentExtra.getStringExtra("First Name") + " " +
                                     intentExtra.getStringExtra("Last Name"));
                             user.put("Mobile Number", intentExtra.getStringExtra("Phone Number"));
+
+                            FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
+                            user1.sendEmailVerification();
+
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
