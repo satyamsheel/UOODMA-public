@@ -121,7 +121,7 @@ public class registerActivity extends AppCompatActivity {
     public boolean validateFirstName() {
         String firstName = registerFirstNameText.getText().toString().trim();
         if (firstName.isEmpty()) {
-            registerFirstNameText.setError("Enter valid password");
+            registerFirstNameText.setError("Please enter first name");
             registerFirstNameText.requestFocus();
             return false;
         } else {
@@ -133,7 +133,7 @@ public class registerActivity extends AppCompatActivity {
     public boolean validateLastName() {
         String lastName = registerLastNameText.getText().toString().trim();
         if (lastName.isEmpty()) {
-            registerLastNameText.setError("Enter valid password");
+            registerLastNameText.setError("Please enter last name");
             registerLastNameText.requestFocus();
             return false;
         } else {
@@ -150,7 +150,7 @@ public class registerActivity extends AppCompatActivity {
             registerPasswordText.requestFocus();
             return false;
         } else if (password.trim().isEmpty()) {
-            registerPasswordText.setError("Enter password");
+            registerPasswordText.setError("Please enter password");
             registerPasswordText.requestFocus();
             return false;
         } else {
@@ -163,7 +163,7 @@ public class registerActivity extends AppCompatActivity {
         String confirmPass = registerRePasswordText.getText().toString().trim();
 
         if (confirmPass.isEmpty()) {
-            registerRePasswordText.setError("Enter password");
+            registerRePasswordText.setError("Please enter password");
             registerRePasswordText.requestFocus();
             return false;
         } else {
