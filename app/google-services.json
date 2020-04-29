@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "416135150567-k0fiet0s8otsculhdiailhk2pccdc018.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.uoodma",
+            "certificate_hash": "94b32506ca7b3ec34a101f2337bfbe9a1475aac6"
+          }
+        },
+        {
           "client_id": "416135150567-9s6coomec7dcpdpjgi2cl5dpr1f2ju2s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +46,13 @@
             {
               "client_id": "416135150567-l4f9mrl1a0ro2990b42dpjvvqu135i46.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "416135150567-ob02c60u335vkn5u097oevkij08hvhg9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "deveshtyagi7.Uoodma"
+              }
             }
           ]
         }
