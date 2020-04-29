@@ -3,18 +3,22 @@ package com.example.uoodma;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.uoodma.login_register.MainActivity;
 import com.example.uoodma.login_register.phoneVerificationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,9 +38,10 @@ public class editProfile extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference documentReference;
     EditText editProfileEmailText, editProfileFullNameText, editProfilePhoneNumberText, editProfileAlternatePhoneNumberText,
-            fullAddressText, editProfileCityText, editProfileStateText, editProfilePinCodeText;
+            fullAddressText, editProfileCityText, editProfileStateText, editProfilePinCodeText, userDobText,  userAgeText;
     Button editProfileSaveChanges;
     TextView userVerificationText, verificationText;
+    DatePickerDialog.OnDateSetListener mDateSetListener;
 
     final FirebaseUser user = mAuth.getCurrentUser();
 
@@ -57,6 +63,8 @@ public class editProfile extends AppCompatActivity {
         editProfileSaveChanges = findViewById(R.id.editProfileSaveChanges);
         userVerificationText = findViewById(R.id.verifyUserText);
         verificationText = findViewById(R.id.verificationText);
+        userDobText = findViewById(R.id.userDobText);
+        userAgeText = findViewById(R.id.userAgeText);
 
         Log.d("___", "onCreate: ");
 
@@ -79,6 +87,41 @@ public class editProfile extends AppCompatActivity {
                 });
             }
         });
+
+        userDobText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(editProfile.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = month + "/" + day + "/" + year;
+                Calendar calendar = Calendar.getInstance();
+                int presentYr = calendar.get(Calendar.YEAR);
+                int age = presentYr - year;
+                userDobText.setText(date);
+                if (age == 1 || age == 0){
+                    userAgeText.setText(String.valueOf(age) + " year");
+                }
+                else {
+                    userAgeText.setText(String.valueOf(age) + " years");
+                }
+            }
+        };
     }
 
 
