@@ -2,19 +2,17 @@ package com.example.uoodma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.uoodma.login_register.phoneVerificationActivity;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -70,20 +68,6 @@ public class editProfile extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        boolean emailVerified = user.isEmailVerified();
-        if (emailVerified) {
-
-            editProfileEmailText.setText("Verified");
-        } else {
-            user.sendEmailVerification();
-            editProfileEmailText.setText("Not Verified");
-            editProfileEmail.setBoxBackgroundColor(Color.parseColor("#ff0000"));
-        }
-    }
 }
 
 
