@@ -52,7 +52,7 @@ public class loginActivity extends AppCompatActivity {
     Button button5, phoneLogin;
     private String mVerificationId;
     TextView forgetpass;
-    ProgressDialog progressDialog;
+    ProgressDialog progressDialog,progressDialog1;
     //    EditText bottomSheetOTPText;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
@@ -111,6 +111,7 @@ public class loginActivity extends AppCompatActivity {
                 } else {
                     firebaseLogin();
                 }
+               progressDialog1.show();
             }
         });
 
@@ -121,7 +122,10 @@ public class loginActivity extends AppCompatActivity {
             }
         });
         progressDialog = new ProgressDialog(this);
-
+        progressDialog1 = new ProgressDialog(this);
+        progressDialog1.setTitle("Please Wait");
+        progressDialog1.setMessage("Logging In");
+        progressDialog1.setCanceledOnTouchOutside(true);
         phoneLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,17 +157,20 @@ public class loginActivity extends AppCompatActivity {
                         String code1 = bottomSheetOTPText.getText().toString().trim();
                         if (code1.isEmpty() || code1.length() < 6) {
                             bottomSheetOTPText.requestFocus();
+                            progressDialog1.dismiss();
                             return;
                         } else {
                             sendVerificationCode(phoneNumberFinal);
                         }
-
+                        progressDialog1.show();
                     }
                 });
             }
         });
 
     }
+
+
 
     private void sendVerificationCode(String phoneNumberFinal) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -188,8 +195,10 @@ public class loginActivity extends AppCompatActivity {
                             Intent intent = new Intent(loginActivity.this, mainDashboard.class);
                             startActivity(intent);
                             finish();
+                            progressDialog1.dismiss();
                         } else {
                             Toast.makeText(loginActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                            progressDialog1.dismiss();
                         }
                     }
                 });
@@ -265,11 +274,12 @@ public class loginActivity extends AppCompatActivity {
                             Intent intent = new Intent(loginActivity.this, mainDashboard.class);
                             startActivity(intent);
                             finish();
+                            progressDialog1.dismiss();
 
                         } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(loginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            progressDialog1.dismiss();
 
                         }
                     }
