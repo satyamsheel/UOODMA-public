@@ -2,6 +2,7 @@ package com.example.uoodma;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -45,13 +46,15 @@ public class editProfile extends AppCompatActivity {
 
     final FirebaseUser user = mAuth.getCurrentUser();
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        Log.d("___", "onCreate: ");
+
         editProfileEmailText = findViewById(R.id.editProfileEmailText);
         editProfileFullNameText = findViewById(R.id.editProfileFullNameText);
         editProfilePhoneNumberText = findViewById(R.id.editProfilePhoneNumberText);
@@ -65,8 +68,7 @@ public class editProfile extends AppCompatActivity {
         verificationText = findViewById(R.id.verificationText);
         userDobText = findViewById(R.id.userDobText);
         userAgeText = findViewById(R.id.userAgeText);
-
-        Log.d("___", "onCreate: ");
+        swipeRefreshLayout = findViewById(R.id.swipeToRefresh);
 
         editProfileSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,33 +131,64 @@ public class editProfile extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+                user.reload();
+                if (user.isEmailVerified()){
+                    userVerificationText.setText("Verified User");
+                    userVerificationText.setTextColor(Color.parseColor("#007600"));
+                    verificationText.setVisibility(View.GONE);
+                }
+                else {
+                    userVerificationText.setText("Email is not verified");
+                    userVerificationText.setTextColor(Color.parseColor("#ff0000"));
+                    verificationText.setVisibility(View.VISIBLE);
+                    verificationText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(editProfile.this, "Verification link has been sent", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
 
-        user.reload();
+                }
 
-        if (user.isEmailVerified()){
-                userVerificationText.setText("Verified User");
-                userVerificationText.setTextColor(Color.parseColor("#007600"));
-                verificationText.setVisibility(View.GONE);
-            }
-            else {
-                userVerificationText.setText("Email is not verified");
-                userVerificationText.setTextColor(Color.parseColor("#ff0000"));
-                verificationText.setVisibility(View.VISIBLE);
-                verificationText.setOnClickListener(new View.OnClickListener() {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
-                    public void onClick(View view) {
-                        Log.d("____", "onClick: clicked");
-                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(editProfile.this, "Verification link has been sent", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
+                    public void run() {
+                        user.reload();
+                        if (user.isEmailVerified()){
+                            userVerificationText.setText("Verified User");
+                            userVerificationText.setTextColor(Color.parseColor("#007600"));
+                            verificationText.setVisibility(View.GONE);
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                        else {
+                            userVerificationText.setText("Email is not verified");
+                            userVerificationText.setTextColor(Color.parseColor("#ff0000"));
+                            verificationText.setVisibility(View.VISIBLE);
+                            swipeRefreshLayout.setRefreshing(false);
+                            verificationText.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(editProfile.this, "Verification link has been sent", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
 
-        }
-    }
+                        }
+
+                    }
+                }, 1000);
+
+            }
 }
 
 
