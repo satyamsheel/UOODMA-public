@@ -167,10 +167,7 @@ public class loginActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
-
-
 
     private void sendVerificationCode(String phoneNumberFinal) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(

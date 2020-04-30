@@ -40,7 +40,6 @@ public class phoneVerificationActivity extends AppCompatActivity {
     private FirebaseAuth userAuth;
     FirebaseFirestore db;
 
-    public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

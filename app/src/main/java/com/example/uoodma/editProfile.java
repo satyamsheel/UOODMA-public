@@ -54,6 +54,7 @@ public class editProfile extends AppCompatActivity {
     final FirebaseUser user = mAuth.getCurrentUser();
 
     SwipeRefreshLayout swipeRefreshLayout;
+    TextInputLayout editProfileEmail;
 
 
 
@@ -243,6 +244,10 @@ public class editProfile extends AppCompatActivity {
 
             }
         });
+        editProfileEmailText.setText(user.getEmail());
+        editProfileEmailText.setEnabled(false);
+        editProfilePhoneNumberText.setText(user.getPhoneNumber());
+        editProfilePhoneNumberText.setEnabled(false);
 
     }
 
@@ -315,7 +320,7 @@ public class editProfile extends AppCompatActivity {
 
     public boolean validateUpdatePhoneNum() {
         String phoneNum = editProfilePhoneNumberText.getText().toString().trim();
-        if (phoneNum.length() != 10 && phoneNum.length() > 0) {
+        if (phoneNum.length() != 13 && phoneNum.length() > 0) {
             editProfilePhoneNumberText.setError("Please enter correct no");
             editProfilePhoneNumberText.requestFocus();
             return false;

@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.uoodma.login_register.MainActivity;
 
@@ -28,6 +30,8 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     Toolbar toolbar;
     Button sendData;
     private FirebaseAuth mAuth;
+    TextView headerEmail;
+    FirebaseUser user;
 
 
 
@@ -37,11 +41,13 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_main_dashboard);
 
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         sendData = findViewById(R.id.sendData);
+        headerEmail = findViewById(R.id.headerEmail);
         setSupportActionBar(toolbar);
 
         Menu menu = navigationView.getMenu();
@@ -54,6 +60,16 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.navDashboard);
+        View headView = navigationView.getHeaderView(0);
+        TextView headerEmail = headView.findViewById(R.id.headerEmail);
+        headerEmail.setText(user.getEmail());
+        ImageView headerImageView = headView.findViewById(R.id.headerImageView);
+        headerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
