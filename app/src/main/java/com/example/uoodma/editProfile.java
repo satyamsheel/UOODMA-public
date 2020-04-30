@@ -12,6 +12,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +50,7 @@ public class editProfile extends AppCompatActivity {
     TextView userVerificationText, verificationText;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     final FirebaseUser user = mAuth.getCurrentUser();
 
     SwipeRefreshLayout swipeRefreshLayout;
@@ -73,34 +76,81 @@ public class editProfile extends AppCompatActivity {
         verificationText = findViewById(R.id.verificationText);
         userDobText = findViewById(R.id.userDobText);
         userAgeText = findViewById(R.id.userAgeText);
-
+        editProfileEmail = findViewById(R.id.editProfileEmail);
         swipeRefreshLayout = findViewById(R.id.swipeToRefresh);
 
-        editProfileEmail = findViewById(R.id.editProfileEmail);
+        watcherConnecter();
+        setUserDobnAge();
+        updateUserInfoBtn();
+    }
 
+    public void watcherConnecter(){
+        editProfileEmailText.addTextChangedListener(new updateTextWatcher(editProfileEmailText));
+        editProfileFullNameText.addTextChangedListener(new updateTextWatcher(editProfileFullNameText));
+        editProfilePhoneNumberText.addTextChangedListener(new updateTextWatcher(editProfilePhoneNumberText));
+        editProfileAlternatePhoneNumberText.addTextChangedListener(new updateTextWatcher(editProfileAlternatePhoneNumberText));
+        userDobText.addTextChangedListener(new updateTextWatcher(userDobText));
+        userAgeText.addTextChangedListener(new updateTextWatcher(userAgeText));
+        fullAddressText.addTextChangedListener(new updateTextWatcher(fullAddressText));
+        editProfileCityText.addTextChangedListener(new updateTextWatcher(editProfileCityText));
+        editProfileStateText.addTextChangedListener(new updateTextWatcher(editProfileStateText));
+        editProfilePinCodeText.addTextChangedListener(new updateTextWatcher(editProfilePinCodeText));
+    }
+
+    public void updateUserInfoBtn(){
+
+        
 
         editProfileSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userId = mAuth.getCurrentUser().getUid();
-                DocumentReference documentReference = db.collection("Users").document(userId);
-                Map<String, Object> user = new HashMap<>();
-                user.put("Alternate Phone", editProfileAlternatePhoneNumberText.getText().toString());
-                user.put("Full Address", fullAddressText.getText().toString());
-                user.put("City Name", editProfileCityText.getText().toString());
-                user.put("State Name", editProfileStateText.getText().toString());
-                user.put("Pin Code", editProfilePinCodeText.getText().toString());
-                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(editProfile.this, "Success", Toast.LENGTH_LONG).show();
-                    }
-                });
+                if (!validateUpdateEmail()) {
+                    return;
+                } else if (!validateUpdateName()) {
+                    return;
+                } else if (!validateUpdatePhoneNum()) {
+                    return;
+                } else if (!validateUpdateAlternatePhoneNum()) {
+                    return;
+                } else if (!validateUpdateDob()) {
+                    return;
+                } else if (!validateUpdateAge()) {
+                    return;
+                }
+                else if (!validateUpdateAddress()){
+                    return;
+                }
+                else if (!validateUpdateCity()){
+                    return;
+                }
+                else if (!validateUpdateState()){
+                    return;
+                }
+                else if (!validateUpdatePincode()){
+                    return;
+                }
+                else {
+                    updateUserInfo();
+                }
             }
         });
+    }
 
-        setUserDobnAge();
-
+    public void updateUserInfo(){
+        String userId = mAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("Users").document(userId);
+        Map<String, Object> user = new HashMap<>();
+        user.put("Alternate Phone", editProfileAlternatePhoneNumberText.getText().toString());
+        user.put("Full Address", fullAddressText.getText().toString());
+        user.put("City Name", editProfileCityText.getText().toString());
+        user.put("State Name", editProfileStateText.getText().toString());
+        user.put("Pin Code", editProfilePinCodeText.getText().toString());
+        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(editProfile.this, "Success", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
@@ -232,7 +282,195 @@ public class editProfile extends AppCompatActivity {
         };
     }
 
+    public boolean validateUpdateEmail() {
+        String email = editProfileEmailText.getText().toString();
+
+        if (!email.trim().matches(emailPattern) && email.length() > 0) {
+
+            editProfileEmailText.setError("Please enter correct id");
+            editProfileEmailText.requestFocus();
+            return false;
+        } else if (email.trim().isEmpty()) {
+            editProfileEmailText.setError("Please enter correct id");
+            editProfileEmailText.requestFocus();
+            return false;
+
+        } else {
+            return true;
+        }
+
+    }
+
+    public boolean validateUpdateName() {
+        String userName = editProfileFullNameText.getText().toString().trim();
+        if (userName.isEmpty()) {
+            editProfileFullNameText.setError("Please enter name");
+            editProfileFullNameText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public boolean validateUpdatePhoneNum() {
+        String phoneNum = editProfilePhoneNumberText.getText().toString().trim();
+        if (phoneNum.length() != 10 && phoneNum.length() > 0) {
+            editProfilePhoneNumberText.setError("Please enter correct no");
+            editProfilePhoneNumberText.requestFocus();
+            return false;
+        } else if (phoneNum.isEmpty()) {
+            editProfilePhoneNumberText.setError("Please enter no");
+            editProfilePhoneNumberText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validateUpdateAlternatePhoneNum() {
+        String altPhoneNum = editProfileAlternatePhoneNumberText.getText().toString().trim();
+        if (altPhoneNum.length() != 10 && altPhoneNum.length() > 0) {
+            editProfileAlternatePhoneNumberText.setError("Please enter correct no");
+            editProfileAlternatePhoneNumberText.requestFocus();
+            return false;
+        } else if (altPhoneNum.isEmpty()) {
+            editProfilePhoneNumberText.setError("Please enter no");
+            editProfilePhoneNumberText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validateUpdateDob() {
+        String uDOB = userDobText.getText().toString().trim();
+        if (uDOB.isEmpty()) {
+            userDobText.setError("Please enter DOB");
+            userDobText.requestFocus();
+            return false;
+        } else {
+            userDobText.setError(null);
+            return true;
+        }
+
+    }
+
+    public boolean validateUpdateAge() {
+        String uAge = userAgeText.getText().toString().trim();
+        if (uAge.isEmpty()) {
+            userAgeText.setError("Please enter age");
+            userAgeText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+    public boolean validateUpdateState() {
+        String userState = editProfileStateText.getText().toString().trim();
+        if (userState.isEmpty()) {
+            editProfileStateText.setError("Please enter state");
+            editProfileStateText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public boolean validateUpdateAddress() {
+        String userFullAddress = fullAddressText.getText().toString().trim();
+        if (userFullAddress.isEmpty()) {
+            fullAddressText.setError("Please enter address");
+            fullAddressText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public boolean validateUpdateCity() {
+        String userCity = editProfileCityText.getText().toString().trim();
+        if (userCity.isEmpty()) {
+            editProfileCityText.setError("Please enter city");
+            editProfileCityText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+
+    public boolean validateUpdatePincode() {
+        String pincode = editProfilePinCodeText.getText().toString().trim();
+        if (pincode.length() != 6 && pincode.length() > 0) {
+            editProfilePinCodeText.setError("Please enter correct pincode");
+            editProfilePinCodeText.requestFocus();
+            return false;
+        } else if (pincode.isEmpty()) {
+            editProfilePinCodeText.setError("Please enter pincode");
+            editProfilePinCodeText.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private class updateTextWatcher implements TextWatcher{
+        private  View view;
+
+        public  updateTextWatcher(View view){
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            switch (view.getId()){
+                case R.id.editProfileEmailText:
+                    validateUpdateEmail();
+                    break;
+                case R.id.editProfileFullNameText:
+                    validateUpdateName();
+                    break;
+                case R.id.editProfilePhoneNumberText:
+                    validateUpdatePhoneNum();
+                    break;
+                case R.id.editProfileAlternatePhoneNumberText:
+                    validateUpdateAlternatePhoneNum();
+                    break;
+                case R.id.userDobText:
+                    validateUpdateDob();
+                    break;
+                case R.id.userAgeText:
+                    validateUpdateAge();
+                    break;
+                case R.id.fullAddressText:
+                    validateUpdateAddress();
+                    break;
+                case R.id.editProfileCityText:
+                    validateUpdateCity();
+                    break;
+                case R.id.editProfileStateText:
+                    validateUpdateState();
+                    break;
+                case R.id.editProfilePinCodeText:
+                    validateUpdatePincode();
+                    break;
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    }
+
 }
-
-
-
