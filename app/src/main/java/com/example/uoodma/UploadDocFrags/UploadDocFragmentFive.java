@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ public class UploadDocFragmentFive extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view =  inflater.inflate(R.layout.upload_doc_frag_five, container, false);
 
         frag5Btn1 = view.findViewById(R.id.frag5btn1);
@@ -35,6 +37,7 @@ public class UploadDocFragmentFive extends Fragment {
         frag5Btn8 = view.findViewById(R.id.frag5btn8);
         frag5Btn9 = view.findViewById(R.id.frag5btn9);
         frag5Btn10 = view.findViewById(R.id.frag5btn10);
+
 
         return view;
 
