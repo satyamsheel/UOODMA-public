@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,12 +22,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.uoodma.login_register.MainActivity;
 import com.example.uoodma.login_register.phoneVerificationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.ActionCodeSettings;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -43,6 +46,7 @@ public class editProfile extends AppCompatActivity {
     EditText editProfileEmailText, editProfileFullNameText, editProfilePhoneNumberText, editProfileAlternatePhoneNumberText,
             fullAddressText, editProfileCityText, editProfileStateText, editProfilePinCodeText, userDobText, userAgeText;
     Button editProfileSaveChanges;
+
     TextView userVerificationText, verificationText;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -50,6 +54,8 @@ public class editProfile extends AppCompatActivity {
     final FirebaseUser user = mAuth.getCurrentUser();
 
     SwipeRefreshLayout swipeRefreshLayout;
+    TextInputLayout editProfileEmail;
+
 
 
     @Override
@@ -71,9 +77,8 @@ public class editProfile extends AppCompatActivity {
         verificationText = findViewById(R.id.verificationText);
         userDobText = findViewById(R.id.userDobText);
         userAgeText = findViewById(R.id.userAgeText);
+        editProfileEmail = findViewById(R.id.editProfileEmail);
         swipeRefreshLayout = findViewById(R.id.swipeToRefresh);
-
-
 
         watcherConnecter();
         setUserDobnAge();
@@ -94,6 +99,9 @@ public class editProfile extends AppCompatActivity {
     }
 
     public void updateUserInfoBtn(){
+
+        
+
         editProfileSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,6 +244,10 @@ public class editProfile extends AppCompatActivity {
 
             }
         });
+        editProfileEmailText.setText(user.getEmail());
+        editProfileEmailText.setEnabled(false);
+        editProfilePhoneNumberText.setText(user.getPhoneNumber());
+        editProfilePhoneNumberText.setEnabled(false);
 
     }
 
@@ -308,7 +320,7 @@ public class editProfile extends AppCompatActivity {
 
     public boolean validateUpdatePhoneNum() {
         String phoneNum = editProfilePhoneNumberText.getText().toString().trim();
-        if (phoneNum.length() != 10 && phoneNum.length() > 0) {
+        if (phoneNum.length() != 13 && phoneNum.length() > 0) {
             editProfilePhoneNumberText.setError("Please enter correct no");
             editProfilePhoneNumberText.requestFocus();
             return false;

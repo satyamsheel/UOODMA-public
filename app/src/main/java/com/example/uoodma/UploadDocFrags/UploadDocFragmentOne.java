@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +36,6 @@ public class UploadDocFragmentOne extends Fragment {
         frag1Btn8 = view.findViewById(R.id.frag1btn8);
         frag1Btn9 = view.findViewById(R.id.frag1btn9);
         frag1Btn10 = view.findViewById(R.id.frag1btn10);
-
 
         return view;
     }
