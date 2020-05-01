@@ -4,9 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.uoodma.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -17,6 +20,8 @@ public class UploadDocAdapter extends RecyclerView.Adapter<UploadDocAdapter.uplo
 
     private ArrayList<String> list;
     Context context;
+    FirebaseAuth auth;
+    Button uploadButton2;
 
     public UploadDocAdapter(Context context, ArrayList<String> list) {
         this.list = list;
@@ -27,6 +32,13 @@ public class UploadDocAdapter extends RecyclerView.Adapter<UploadDocAdapter.uplo
     @NonNull
     @Override
     public uploadDocViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        FirebaseUser user = auth.getInstance().getCurrentUser();
+        if (user.isEmailVerified()) {
+         uploadButton2.setEnabled(true);
+        } else {
+     uploadButton2.setEnabled(false);
+        }
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doc_upload_item, parent, false);
         return new uploadDocViewHolder(view);
     }
@@ -49,6 +61,7 @@ public class UploadDocAdapter extends RecyclerView.Adapter<UploadDocAdapter.uplo
         public uploadDocViewHolder(@NonNull View itemView) {
             super(itemView);
             documentType = itemView.findViewById(R.id.documentType);
+            uploadButton2=itemView.findViewById(R.id.uploadButton2);
         }
     }
 }
