@@ -90,6 +90,7 @@ public class phoneVerificationActivity extends AppCompatActivity {
             String code = phoneAuthCredential.getSmsCode();
 
             if (code != null) {
+                progressBar.setVisibility(View.VISIBLE);
                 inputOTPText.setText(code);
                 //verifying the code
                 verifyVerificationCode(code);

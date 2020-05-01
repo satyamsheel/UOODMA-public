@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -51,6 +52,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     ImageView profileImage;
     Uri uriProfilePic;
     String downloadImageLink;
+    ProgressDialog progressDialog;
 
 
 
@@ -61,7 +63,8 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setCanceledOnTouchOutside(true);
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -185,10 +188,12 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                 getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
         if (uriProfilePic != null) {
             //show progress bar
+           progressDialog.show();
             mStorageRef.putFile(uriProfilePic).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     //hide progress Bar
+                    progressDialog.dismiss();
                     downloadImageLink = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                     saveImageAsUserImage();
 
@@ -197,6 +202,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     //hide progress bar
+                    progressDialog.dismiss();
                     Toast.makeText(mainDashboard.this, "unSuccesFull", Toast.LENGTH_LONG).toString();
                 }
             });
