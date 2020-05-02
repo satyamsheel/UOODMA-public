@@ -25,9 +25,8 @@
     <string name="driving_license">Driving License</string>
     <string name="upload">Upload</string>
     <string name="aadhar_card">Aadhar Card</string>
-    <string name="birth_certificate">Birth Certificate</string>
     <string name="higher_secondary_edu_certi">Higher Secondary Education Certificate-10th</string>
-    <string name="pan_card">Pan Card</string>
+
     <string name="save_changes">Save Changes</string>
     <string name="upoad_doc">Upload Documents</string>
     <string name="click_here_to_verify">Click here to verify</string>
@@ -65,7 +64,7 @@
     <string name="pollution_certificate">Pollution Certificate</string>
     <string name="vaical_fitness_certificate">Vaical Fitness Certificate</string>
     <string name="rc">RC</string>
-    <string name="aadhar_card">Aadhar Card</string>
+
     <string name="cast_certificate">Cast Certificate</string>
     <string name="minority_certificate">Minority Certificate</string>
     <string name="character_certificate">Character Certificate</string>
@@ -85,5 +84,12 @@
     <string name="post_graduate_certificate_2yr_3yr">Post Graduate Certificate-2yr/3yr</string>
     <string name="p_hd_certificate">P.HD Certificate</string>
     <string name="voter_card">Voter Card</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_pin">Enter Pin</string>
+    <string name="confirm_pin">Confirm Pin</string>
+    <string name="create_pin">Create Pin</string>
+    <string name="enter">Enter</string>
 
 </resources>

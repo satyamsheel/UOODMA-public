@@ -9,9 +9,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -32,13 +34,19 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
+import androidx.fragment.app.Fragment;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class mainDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int CHOOSE_IMAGE = 00001;
@@ -52,6 +60,9 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     ImageView profileImage;
     Uri uriProfilePic;
     String downloadImageLink;
+
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
@@ -72,6 +83,10 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         mainDashboardName = findViewById(R.id.mainDashboardName);
         setSupportActionBar(toolbar);
 
+
+
+
+//        getPin();
 
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.navLogout).setVisible(true);
@@ -139,7 +154,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                   startActivity(intent1);
                   break;
               case R.id.navProfile:
-                  Intent intent3=new Intent(mainDashboard.this,MyProfile.class);
+                  Intent intent3=new Intent(mainDashboard.this,PinCodeActivity.class);
                   startActivity(intent3);
                   break;
 
@@ -218,5 +233,12 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+        String pin = sharedPreferences.getString("KEY", null);
+        Log.d("____", "onCreate: spref" + pin);
+
     }
+    
+
+
 }
