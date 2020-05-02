@@ -110,11 +110,7 @@ public class editProfile extends AppCompatActivity {
                     return;
                 } else if (!validateUpdateName()) {
                     return;
-                }
-//                else if (!validateUpdatePhoneNum()) {
-//                    return;
-//            }
-                else if (!validateUpdateAlternatePhoneNum()) {
+                } else if (!validateUpdateAlternatePhoneNum()) {
                     return;
                 } else if (!validateUpdateDob()) {
                     return;
@@ -372,8 +368,8 @@ public class editProfile extends AppCompatActivity {
             editProfileAlternatePhoneNumberText.requestFocus();
             return false;
         } else if (altPhoneNum.isEmpty()) {
-            editProfilePhoneNumberText.setError("Please enter no");
-            editProfilePhoneNumberText.requestFocus();
+            editProfileAlternatePhoneNumberText.setError("Please enter no");
+            editProfileAlternatePhoneNumberText.requestFocus();
             return false;
         } else {
             return true;
@@ -477,9 +473,7 @@ public class editProfile extends AppCompatActivity {
                 case R.id.editProfileFullNameText:
                     validateUpdateName();
                     break;
-//                case R.id.editProfilePhoneNumberText:
-//                    validateUpdatePhoneNum();
-//                    break;
+
                 case R.id.editProfileAlternatePhoneNumberText:
                     validateUpdateAlternatePhoneNum();
                     break;
