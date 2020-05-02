@@ -2,10 +2,14 @@ package com.example.uoodma;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,6 +17,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -41,7 +46,8 @@ public class editProfile extends AppCompatActivity {
     EditText editProfileEmailText, editProfileFullNameText, editProfilePhoneNumberText, editProfileAlternatePhoneNumberText,
             fullAddressText, editProfileCityText, editProfileStateText, editProfilePinCodeText, userDobText, userAgeText;
     Button editProfileSaveChanges, editProfileUploadData;
-
+    ProgressDialog progressDialog1;
+    Toolbar toolbar;
     TextView userVerificationText, verificationText;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -75,10 +81,18 @@ public class editProfile extends AppCompatActivity {
         editProfileEmail = findViewById(R.id.editProfileEmail);
         editProfileUploadData = findViewById(R.id.editProfileUploadData);
         swipeRefreshLayout = findViewById(R.id.swipeToRefresh);
+        //toolbar implemented
+        toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         watcherConnecter();
         setUserDobnAge();
         updateUserInfoBtn();
+//progress bar implemented
+        progressDialog1 = new ProgressDialog(this);
+        progressDialog1.setMessage("Please Wait");
+        progressDialog1.setCanceledOnTouchOutside(true);
     }
 
     public void watcherConnecter(){
@@ -121,6 +135,7 @@ public class editProfile extends AppCompatActivity {
                 } else {
                     updateUserInfo();
                 }
+                progressDialog1.show();
             }
         });
 
@@ -128,7 +143,7 @@ public class editProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fetchUserInfo();
-
+              progressDialog1.show();
             }
         });
     }
