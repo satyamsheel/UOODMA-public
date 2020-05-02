@@ -20,7 +20,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/birth_certificate"/>
 
         <Button
             android:id="@+id/frag1btn1"
@@ -47,7 +47,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/ration_card"/>
 
         <Button
             android:id="@+id/frag1btn2"
@@ -74,7 +74,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/school_grad_certificate_1_to_9"/>
 
         <Button
             android:id="@+id/frag1btn3"
@@ -101,7 +101,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/secondary_education_certificate_10th"/>
 
         <Button
             android:id="@+id/frag1btn4"
@@ -128,7 +128,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/higher_secondary_education_certificate_12"/>
 
         <Button
             android:id="@+id/frag1btn5"
@@ -155,7 +155,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/diploma_certificate_3yr_2yr_1yr_6month"/>
 
         <Button
             android:id="@+id/frag1btn6"
@@ -182,7 +182,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/graduate_education_certificate_3yr_or_4yr"/>
 
         <Button
             android:id="@+id/frag1btn7"
@@ -209,7 +209,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/post_graduate_certificate_2yr_3yr"/>
 
         <Button
             android:id="@+id/frag1btn8"
@@ -236,7 +236,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/p_hd_certificate"/>
 
         <Button
             android:id="@+id/frag1btn9"
@@ -263,7 +263,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/voter_card"/>
 
         <Button
             android:id="@+id/frag1btn10"

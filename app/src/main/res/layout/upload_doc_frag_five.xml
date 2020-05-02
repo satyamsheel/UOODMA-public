@@ -20,7 +20,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/rent_agreement"/>
 
         <Button
             android:id="@+id/frag5btn1"
@@ -47,7 +47,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/lease_agreement"/>
 
         <Button
             android:id="@+id/frag5btn2"
@@ -74,7 +74,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/import_export_certificate"/>
 
         <Button
             android:id="@+id/frag5btn3"
@@ -101,7 +101,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/treading_licence"/>
 
         <Button
             android:id="@+id/frag5btn4"
@@ -128,7 +128,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/udyog_aadhar_certificate"/>
 
         <Button
             android:id="@+id/frag5btn5"
@@ -155,7 +155,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/msme_certificate"/>
 
         <Button
             android:id="@+id/frag5btn6"
@@ -182,7 +182,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/nsic_registration_certificate"/>
 
         <Button
             android:id="@+id/frag5btn7"
@@ -209,7 +209,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/other_certificates"/>
 
         <Button
             android:id="@+id/frag5btn8"
@@ -236,7 +236,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/other_licences"/>
 
         <Button
             android:id="@+id/frag5btn9"
@@ -263,7 +263,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/dalil_or_deed"/>
 
         <Button
             android:id="@+id/frag5btn10"
