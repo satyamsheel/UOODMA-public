@@ -25,13 +25,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.example.uoodma.login_register.MainActivity;
-import com.example.uoodma.login_register.phoneVerificationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -162,7 +158,7 @@ public class editProfile extends AppCompatActivity {
                     // Map<String, Object> user = new HashMap<>();
                     editProfileFullNameText.setText(documentSnapshot.getString("User Full Name"));
                     editProfileAlternatePhoneNumberText.setText(documentSnapshot.getString("Alternate Phone"));
-                    userDobText.setText(documentSnapshot.getString("D.O.B"));
+                    userDobText.setText(documentSnapshot.getString("Birth Date"));
                     userAgeText.setText(documentSnapshot.getString("Age"));
                     fullAddressText.setText(documentSnapshot.getString("Full Address"));
                     editProfileCityText.setText(documentSnapshot.getString("City Name"));
@@ -181,7 +177,7 @@ public class editProfile extends AppCompatActivity {
         Map<String, Object> user = new HashMap<>();
         user.put("User Full Name", editProfileFullNameText.getText().toString());
         user.put("Alternate Phone", editProfileAlternatePhoneNumberText.getText().toString());
-        user.put("D.O.B", userDobText.getText().toString());
+        user.put("Birth Date", userDobText.getText().toString());
         user.put("Age", userAgeText.getText().toString());
         user.put("Full Address", fullAddressText.getText().toString());
         user.put("City Name", editProfileCityText.getText().toString());
