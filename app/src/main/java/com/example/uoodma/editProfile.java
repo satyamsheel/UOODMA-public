@@ -33,6 +33,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
@@ -45,7 +46,7 @@ public class editProfile extends AppCompatActivity {
     DocumentReference documentReference;
     EditText editProfileEmailText, editProfileFullNameText, editProfilePhoneNumberText, editProfileAlternatePhoneNumberText,
             fullAddressText, editProfileCityText, editProfileStateText, editProfilePinCodeText, userDobText, userAgeText;
-    Button editProfileSaveChanges;
+    Button editProfileSaveChanges, editProfileUploadData;
 
     TextView userVerificationText, verificationText;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -78,6 +79,7 @@ public class editProfile extends AppCompatActivity {
         userDobText = findViewById(R.id.userDobText);
         userAgeText = findViewById(R.id.userAgeText);
         editProfileEmail = findViewById(R.id.editProfileEmail);
+        editProfileUploadData = findViewById(R.id.editProfileUploadData);
         swipeRefreshLayout = findViewById(R.id.swipeToRefresh);
 
         watcherConnecter();
@@ -88,7 +90,7 @@ public class editProfile extends AppCompatActivity {
     public void watcherConnecter(){
         editProfileEmailText.addTextChangedListener(new updateTextWatcher(editProfileEmailText));
         editProfileFullNameText.addTextChangedListener(new updateTextWatcher(editProfileFullNameText));
-        editProfilePhoneNumberText.addTextChangedListener(new updateTextWatcher(editProfilePhoneNumberText));
+        // editProfilePhoneNumberText.addTextChangedListener(new updateTextWatcher(editProfilePhoneNumberText));
         editProfileAlternatePhoneNumberText.addTextChangedListener(new updateTextWatcher(editProfileAlternatePhoneNumberText));
         userDobText.addTextChangedListener(new updateTextWatcher(userDobText));
         userAgeText.addTextChangedListener(new updateTextWatcher(userAgeText));
@@ -100,7 +102,6 @@ public class editProfile extends AppCompatActivity {
 
     public void updateUserInfoBtn(){
 
-        
 
         editProfileSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,29 +110,57 @@ public class editProfile extends AppCompatActivity {
                     return;
                 } else if (!validateUpdateName()) {
                     return;
-                } else if (!validateUpdatePhoneNum()) {
-                    return;
-                } else if (!validateUpdateAlternatePhoneNum()) {
+                }
+//                else if (!validateUpdatePhoneNum()) {
+//                    return;
+//            }
+                else if (!validateUpdateAlternatePhoneNum()) {
                     return;
                 } else if (!validateUpdateDob()) {
                     return;
                 } else if (!validateUpdateAge()) {
                     return;
-                }
-                else if (!validateUpdateAddress()){
+                } else if (!validateUpdateAddress()){
                     return;
-                }
-                else if (!validateUpdateCity()){
+                } else if (!validateUpdateCity()){
                     return;
-                }
-                else if (!validateUpdateState()){
+                } else if (!validateUpdateState()){
                     return;
-                }
-                else if (!validateUpdatePincode()){
+                } else if (!validateUpdatePincode()){
                     return;
-                }
-                else {
+                } else {
                     updateUserInfo();
+                }
+            }
+        });
+
+        editProfileUploadData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchUserInfo();
+
+            }
+        });
+    }
+
+    private void fetchUserInfo() {
+        String userId = mAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("Users").document(userId);
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    // Map<String, Object> user = new HashMap<>();
+                    editProfileFullNameText.setText(documentSnapshot.getString("User Full Name"));
+                    editProfileAlternatePhoneNumberText.setText(documentSnapshot.getString("Alternate Phone"));
+                    userDobText.setText(documentSnapshot.getString("D.O.B"));
+                    userAgeText.setText(documentSnapshot.getString("Age"));
+                    fullAddressText.setText(documentSnapshot.getString("Full Address"));
+                    editProfileCityText.setText(documentSnapshot.getString("City Name"));
+                    editProfileStateText.setText(documentSnapshot.getString("State Name"));
+                    editProfilePinCodeText.setText(documentSnapshot.getString("Pin Code"));
+                } else {
+                    Toast.makeText(editProfile.this, "No data Exists, Please update", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -141,7 +170,10 @@ public class editProfile extends AppCompatActivity {
         String userId = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = db.collection("Users").document(userId);
         Map<String, Object> user = new HashMap<>();
+        user.put("User Full Name", editProfileFullNameText.getText().toString());
         user.put("Alternate Phone", editProfileAlternatePhoneNumberText.getText().toString());
+        user.put("D.O.B", userDobText.getText().toString());
+        user.put("Age", userAgeText.getText().toString());
         user.put("Full Address", fullAddressText.getText().toString());
         user.put("City Name", editProfileCityText.getText().toString());
         user.put("State Name", editProfileStateText.getText().toString());
@@ -318,20 +350,20 @@ public class editProfile extends AppCompatActivity {
 
     }
 
-    public boolean validateUpdatePhoneNum() {
-        String phoneNum = editProfilePhoneNumberText.getText().toString().trim();
-        if (phoneNum.length() != 13 && phoneNum.length() > 0) {
-            editProfilePhoneNumberText.setError("Please enter correct no");
-            editProfilePhoneNumberText.requestFocus();
-            return false;
-        } else if (phoneNum.isEmpty()) {
-            editProfilePhoneNumberText.setError("Please enter no");
-            editProfilePhoneNumberText.requestFocus();
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    public boolean validateUpdatePhoneNum() {
+//        String phoneNum = editProfilePhoneNumberText.getText().toString().trim();
+//        if (phoneNum.length() != 13 && phoneNum.length() > 0) {
+//            editProfilePhoneNumberText.setError("Please enter correct no");
+//            editProfilePhoneNumberText.requestFocus();
+//            return false;
+//        } else if (phoneNum.isEmpty()) {
+//            editProfilePhoneNumberText.setError("Please enter no");
+//            editProfilePhoneNumberText.requestFocus();
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     public boolean validateUpdateAlternatePhoneNum() {
         String altPhoneNum = editProfileAlternatePhoneNumberText.getText().toString().trim();
@@ -445,9 +477,9 @@ public class editProfile extends AppCompatActivity {
                 case R.id.editProfileFullNameText:
                     validateUpdateName();
                     break;
-                case R.id.editProfilePhoneNumberText:
-                    validateUpdatePhoneNum();
-                    break;
+//                case R.id.editProfilePhoneNumberText:
+//                    validateUpdatePhoneNum();
+//                    break;
                 case R.id.editProfileAlternatePhoneNumberText:
                     validateUpdateAlternatePhoneNum();
                     break;

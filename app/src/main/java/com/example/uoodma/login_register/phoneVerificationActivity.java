@@ -44,7 +44,6 @@ public class phoneVerificationActivity extends AppCompatActivity {
     FirebaseFirestore db;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

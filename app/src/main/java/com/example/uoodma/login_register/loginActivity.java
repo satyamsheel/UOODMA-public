@@ -190,8 +190,9 @@ public class loginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(loginActivity.this, mainDashboard.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-                            finish();
+
                             progressDialog1.dismiss();
                         } else {
                             Toast.makeText(loginActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
