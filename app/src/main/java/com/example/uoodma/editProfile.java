@@ -132,7 +132,8 @@ public class editProfile extends AppCompatActivity {
                     return;
                 } else if (!validateUpdatePincode()){
                     return;
-                } else {
+                }
+                else {
                     updateUserInfo();
                 }
                 progressDialog1.show();
@@ -154,6 +155,7 @@ public class editProfile extends AppCompatActivity {
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                progressDialog1.dismiss();
                 if (documentSnapshot.exists()) {
                     // Map<String, Object> user = new HashMap<>();
                     editProfileFullNameText.setText(documentSnapshot.getString("User Full Name"));
@@ -187,6 +189,7 @@ public class editProfile extends AppCompatActivity {
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                progressDialog1.dismiss();
                 Toast.makeText(editProfile.this, "Success", Toast.LENGTH_LONG).show();
             }
         });
