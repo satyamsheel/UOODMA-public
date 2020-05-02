@@ -56,7 +56,6 @@
     <string name="address_proof_certificate">Address Proof Certificate</string>
     <string name="value_added_tax_certificate">Value Added Tax Certificate</string>
     <string name="incorporation_certification">Incorporation Certification</string>
-    <string name="pan_card">Pan Card</string>
     <string name="no_objection_certificate">No Objection Certificate</string>
     <string name="medical_fitness_certificate">Medical Fitness Certificate</string>
     <string name="medical_certificate">Medical Certificate</string>
@@ -64,7 +63,6 @@
     <string name="pollution_certificate">Pollution Certificate</string>
     <string name="vaical_fitness_certificate">Vaical Fitness Certificate</string>
     <string name="rc">RC</string>
-
     <string name="cast_certificate">Cast Certificate</string>
     <string name="minority_certificate">Minority Certificate</string>
     <string name="character_certificate">Character Certificate</string>
@@ -74,7 +72,6 @@
     <string name="professional_tax_certificate">Professional Tax Certificate</string>
     <string name="goods_service_tax_certificate">Goods Service Tax Certificate</string>
     <string name="transfer_certificate">Transfer Certificate</string>
-    <string name="birth_certificate">Birth Certificate</string>
     <string name="ration_card">Ration Card</string>
     <string name="school_grad_certificate_1_to_9">School Grad Certificate-1 to 9</string>
     <string name="secondary_education_certificate_10th">Secondary Education Certificate-10th</string>

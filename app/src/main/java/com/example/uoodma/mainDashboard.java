@@ -42,6 +42,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import androidx.fragment.app.Fragment;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,11 +57,12 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     Toolbar toolbar;
     Button sendData;
     private FirebaseAuth mAuth;
-    TextView headerEmail, mainDashboardName;
+    TextView headerEmail, mainDashboardName, mainDashboardUID;
     FirebaseUser user;
     ImageView profileImage;
     Uri uriProfilePic;
     String downloadImageLink;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -81,6 +84,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         headerEmail = findViewById(R.id.headerEmail);
         profileImage = findViewById(R.id.profileImage);
         mainDashboardName = findViewById(R.id.mainDashboardName);
+        mainDashboardUID = findViewById(R.id.mainDashboardUID);
         setSupportActionBar(toolbar);
 
 
@@ -122,10 +126,15 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                     .load(user.getPhotoUrl().toString())
                     .into(profileImage);
         }
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        String uids = pref.getString("IMPUID", "  ");
+        String finalUID = "UID- " + "(" + uids.substring(0, 2) + ")(" + uids.substring(2, 5) + ")(" + uids.substring(5, 8)
+                + ")(" + uids.substring(8, 11) + ")(" + uids.substring(11, 14) + ")";
+        mainDashboardName.setText(user.getDisplayName());
+        mainDashboardUID.setText(finalUID);
 
-        if (user.getDisplayName() != null) {
-            mainDashboardName.setText(user.getDisplayName());
-        }
+
 
     }
 
@@ -160,6 +169,9 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
 
               case R.id.navLogout:
                   mAuth.signOut();
+                  SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+                  SharedPreferences.Editor editor = pref.edit();
+                  editor.remove("IMPUID");
                   Intent intentLogout = new Intent(mainDashboard.this, MainActivity.class);
                   startActivity(intentLogout);
                   finish();

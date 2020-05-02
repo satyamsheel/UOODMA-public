@@ -12,7 +12,9 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="65dp"
         tools:layout_editor_absoluteY="7dp">
-
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userDob"

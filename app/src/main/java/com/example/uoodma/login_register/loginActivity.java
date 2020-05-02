@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.text.Editable;
@@ -25,10 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uoodma.R;
+import com.example.uoodma.editProfile;
 import com.example.uoodma.healperClass.countryData;
 import com.example.uoodma.mainDashboard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -40,6 +43,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.concurrent.TimeUnit;
 
@@ -52,6 +58,7 @@ public class loginActivity extends AppCompatActivity {
     Button button5, phoneLogin;
     private String mVerificationId;
     TextView forgetpass;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     ProgressDialog progressDialog,progressDialog1;
     //    EditText bottomSheetOTPText;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -90,7 +97,6 @@ public class loginActivity extends AppCompatActivity {
         passwordText=findViewById(R.id.passwordText);
         button5=findViewById(R.id.button5);
         forgetpass=findViewById(R.id.forgetPass);
-//        bottomSheetOTPText=findViewById(R.id.bottomSheetOTPText);
 
         emailText.addTextChangedListener(new gTextWatcher(emailText));
         passwordText.addTextChangedListener(new gTextWatcher(passwordText));
@@ -98,12 +104,7 @@ public class loginActivity extends AppCompatActivity {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (emailText.getText().toString().isEmpty()){
-//                    emailText.setError("Please Enter Email Id");
-//                }
-//                if (passwordText.getText().toString().isEmpty()){
-//                    passwordText.setError("Please Enter Password");
-//                }
+
                 if (!validateEmail()) {
                     return;
                 } else if (!validatePassword()) {
@@ -126,6 +127,7 @@ public class loginActivity extends AppCompatActivity {
         progressDialog1.setTitle("Please Wait");
         progressDialog1.setMessage("Logging In");
         progressDialog1.setCanceledOnTouchOutside(true);
+
         phoneLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,9 +191,25 @@ public class loginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(loginActivity.this, mainDashboard.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+
+                            DocumentReference documentReference = db.collection("Users").document(mAuth.getCurrentUser().getUid());
+                            documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if (documentSnapshot.exists()) {
+                                        SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = pref.edit();
+                                        editor.putString("IMPUID", documentSnapshot.getString("UID"));
+                                        editor.apply();
+                                        Intent intent = new Intent(loginActivity.this, mainDashboard.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    } else {
+
+                                    }
+                                }
+                            });
+
 
                             progressDialog1.dismiss();
                         } else {
@@ -268,10 +286,26 @@ public class loginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(loginActivity.this, "Welcome Back", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(loginActivity.this, mainDashboard.class);
-                            startActivity(intent);
-                            finish();
+                            DocumentReference documentReference = db.collection("Users").document(mAuth.getCurrentUser().getUid());
+                            documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if (documentSnapshot.exists()) {
+                                        SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = pref.edit();
+                                        editor.putString("IMPUID", documentSnapshot.getString("UID"));
+                                        editor.apply();
+                                        Toast.makeText(loginActivity.this, "Welcome Back", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(loginActivity.this, mainDashboard.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    } else {
+
+                                    }
+                                }
+                            });
+
                             progressDialog1.dismiss();
 
                         } else {
