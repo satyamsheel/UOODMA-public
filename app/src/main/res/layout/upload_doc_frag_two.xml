@@ -20,7 +20,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/aadhar_card"/>
 
         <Button
             android:id="@+id/frag2btn1"
@@ -47,7 +47,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/cast_certificate"/>
 
         <Button
             android:id="@+id/frag2btn2"
@@ -74,7 +74,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/minority_certificate"/>
 
         <Button
             android:id="@+id/frag2btn3"
@@ -101,7 +101,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/character_certificate"/>
 
         <Button
             android:id="@+id/frag2btn4"
@@ -128,7 +128,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/residential_proof_certificate"/>
 
         <Button
             android:id="@+id/frag2btn5"
@@ -155,7 +155,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/income_proof_certificate"/>
 
         <Button
             android:id="@+id/frag2btn6"
@@ -182,7 +182,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/income_tax_certificate"/>
 
         <Button
             android:id="@+id/frag2btn7"
@@ -209,7 +209,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/professional_tax_certificate"/>
 
         <Button
             android:id="@+id/frag2btn8"
@@ -236,7 +236,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/goods_service_tax_certificate"/>
 
         <Button
             android:id="@+id/frag2btn9"
@@ -263,7 +263,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="MY cod"/>
+            android:text="@string/transfer_certificate"/>
 
         <Button
             android:id="@+id/frag2btn10"
