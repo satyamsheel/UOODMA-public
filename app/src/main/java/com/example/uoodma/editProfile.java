@@ -149,8 +149,8 @@ public class editProfile extends AppCompatActivity {
     }
 
     private void fetchUserInfo() {
-        String userId = mAuth.getCurrentUser().getUid();
-        DocumentReference documentReference = db.collection("Users").document(userId);
+
+        DocumentReference documentReference = db.collection("Users").document(mAuth.getCurrentUser().getUid());
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -183,6 +183,7 @@ public class editProfile extends AppCompatActivity {
         user.put("City Name", editProfileCityText.getText().toString());
         user.put("State Name", editProfileStateText.getText().toString());
         user.put("Pin Code", editProfilePinCodeText.getText().toString());
+
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -354,21 +355,6 @@ public class editProfile extends AppCompatActivity {
         }
 
     }
-
-//    public boolean validateUpdatePhoneNum() {
-//        String phoneNum = editProfilePhoneNumberText.getText().toString().trim();
-//        if (phoneNum.length() != 13 && phoneNum.length() > 0) {
-//            editProfilePhoneNumberText.setError("Please enter correct no");
-//            editProfilePhoneNumberText.requestFocus();
-//            return false;
-//        } else if (phoneNum.isEmpty()) {
-//            editProfilePhoneNumberText.setError("Please enter no");
-//            editProfilePhoneNumberText.requestFocus();
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
 
     public boolean validateUpdateAlternatePhoneNum() {
         String altPhoneNum = editProfileAlternatePhoneNumberText.getText().toString().trim();

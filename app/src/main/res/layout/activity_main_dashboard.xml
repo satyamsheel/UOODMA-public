@@ -49,13 +49,13 @@
             app:layout_constraintVertical_bias="0.013" />
 
         <TextView
-            android:id="@+id/idNumber"
+            android:id="@+id/mainDashboardUID"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_below="@id/mainDashboardName"
             android:layout_centerHorizontal="true"
             android:text="UID Number"
-            android:textSize="25sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -67,7 +67,7 @@
         android:id="@+id/sendData"
         android:layout_width="240dp"
         android:layout_height="60dp"
-        android:layout_below="@id/idNumber"
+            android:layout_below="@id/mainDashboardUID"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
         android:background="@drawable/edit_round"
@@ -80,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idNumber" />
+            app:layout_constraintTop_toBottomOf="@+id/mainDashboardUID" />
 
     <Button
         android:id="@+id/deleteRequest"

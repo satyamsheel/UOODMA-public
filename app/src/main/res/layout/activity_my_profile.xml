@@ -19,7 +19,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/myProfileUID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -38,9 +38,9 @@
             android:layout_marginTop="28dp"
             android:src="@drawable/ic_apps_black_24dp"
             android:background="@drawable/image_border"
-            app:layout_constraintEnd_toEndOf="@+id/textView3"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+            app:layout_constraintEnd_toEndOf="@+id/myProfileUID"
+            app:layout_constraintStart_toStartOf="@+id/myProfileUID"
+            app:layout_constraintTop_toBottomOf="@+id/myProfileUID" />
 
         <ImageButton
             android:layout_width="wrap_content"

@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,11 +33,16 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -47,11 +53,12 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     Toolbar toolbar;
     Button sendData;
     private FirebaseAuth mAuth;
-    TextView headerEmail, mainDashboardName;
+    TextView headerEmail, mainDashboardName, mainDashboardUID;
     FirebaseUser user;
     ImageView profileImage;
     Uri uriProfilePic;
     String downloadImageLink;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
@@ -70,6 +77,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         headerEmail = findViewById(R.id.headerEmail);
         profileImage = findViewById(R.id.profileImage);
         mainDashboardName = findViewById(R.id.mainDashboardName);
+        mainDashboardUID = findViewById(R.id.mainDashboardUID);
         setSupportActionBar(toolbar);
 
 
@@ -107,10 +115,15 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                     .load(user.getPhotoUrl().toString())
                     .into(profileImage);
         }
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        String uids = pref.getString("IMPUID", "  ");
+        String finalUID = "UID- " + "(" + uids.substring(0, 2) + ")(" + uids.substring(2, 4) + ")(" + uids.substring(6, 9)
+                + ")(" + uids.substring(10, 12) + ")(" + uids.substring(11, 14) + ")";
+        mainDashboardName.setText(user.getDisplayName());
+        mainDashboardUID.setText(finalUID);
 
-        if (user.getDisplayName() != null) {
-            mainDashboardName.setText(user.getDisplayName());
-        }
+
 
     }
 
