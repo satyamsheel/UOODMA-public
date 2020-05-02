@@ -186,6 +186,11 @@ public class editProfile extends AppCompatActivity {
         user.put("State Name", editProfileStateText.getText().toString());
         user.put("Pin Code", editProfilePinCodeText.getText().toString());
 
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        String uids = pref.getString("IMPUID", "  ");
+        user.put("UID", uids);
+
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

@@ -118,8 +118,8 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         String uids = pref.getString("IMPUID", "  ");
-        String finalUID = "UID- " + "(" + uids.substring(0, 2) + ")(" + uids.substring(2, 4) + ")(" + uids.substring(6, 9)
-                + ")(" + uids.substring(10, 12) + ")(" + uids.substring(11, 14) + ")";
+        String finalUID = "UID- " + "(" + uids.substring(0, 2) + ")(" + uids.substring(2, 5) + ")(" + uids.substring(5, 8)
+                + ")(" + uids.substring(8, 11) + ")(" + uids.substring(11, 14) + ")";
         mainDashboardName.setText(user.getDisplayName());
         mainDashboardUID.setText(finalUID);
 
@@ -158,6 +158,9 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
 
               case R.id.navLogout:
                   mAuth.signOut();
+                  SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+                  SharedPreferences.Editor editor = pref.edit();
+                  editor.remove("IMPUID");
                   Intent intentLogout = new Intent(mainDashboard.this, MainActivity.class);
                   startActivity(intentLogout);
                   finish();
