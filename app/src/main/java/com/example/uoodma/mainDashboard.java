@@ -29,8 +29,10 @@ import com.bumptech.glide.Glide;
 import com.example.uoodma.helperClass.recyclerAdapter;
 import com.example.uoodma.login_register.MainActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,15 +54,16 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     Button sendData;
     private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     TextView headerEmail, mainDashboardName, mainDashboardUID;
+
     FirebaseUser user;
     ImageView profileImage;
     Uri uriProfilePic;
     String downloadImageLink;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-    //FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
@@ -90,7 +93,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
 
 
 
-//        getPin();
+
 
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.navLogout).setVisible(true);
@@ -163,7 +166,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                   startActivity(intent1);
                   break;
               case R.id.navProfile:
-                  Intent intent3=new Intent(mainDashboard.this,PinCodeActivity.class);
+                  Intent intent3=new Intent(mainDashboard.this, PinCodeActivity.class);
                   startActivity(intent3);
                   break;
 
@@ -245,12 +248,44 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
-        String pin = sharedPreferences.getString("KEY", null);
-        Log.d("____", "onCreate: spref" + pin);
+        getPin(new MyCallBack() {
+            @Override
+            public void OnCallBack(String onPin) {
+                Log.d("___", "OnCallBack:test " + onPin);
+                SharedPreferences sp = getSharedPreferences("SP",0);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("onlinePin",onPin);
+                editor.commit();
+
+            }
+        });
+
 
     }
-    
+
+    public interface MyCallBack{
+        void OnCallBack(String onPin);
+    }
+
+    public void getPin(final MyCallBack myCallBack){
+        String userId = mAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("Users").document(userId);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if ((task.isSuccessful())){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    final String pin = documentSnapshot.getString("onlinePin");
+                    Log.d("___", "onComplete: " + pin);
+
+                    myCallBack.OnCallBack(pin);
+
+                }
+            }
+        });
+    }
 
 
 }
+
+

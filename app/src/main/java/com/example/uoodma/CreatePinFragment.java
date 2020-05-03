@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.uoodma.ConfirmPinFragment;
+import com.example.uoodma.R;
+
 
 public class CreatePinFragment extends Fragment {
 

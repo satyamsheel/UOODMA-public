@@ -27,11 +27,11 @@ public class PinCodeActivity extends AppCompatActivity {
     public void changeFragment(){
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
-        String pin = sharedPreferences.getString("KEY", null);
-        Log.d("____", "onCreate: spref" + pin);
+        SharedPreferences s = getSharedPreferences("SP", 0);
+        String fPin = s.getString("onlinePin",null);
+        Log.d("___", "OnCallBackact: " + fPin);
 
-        if (pin == null){
+        if (fPin == null){
             Log.d("___", "changeFragment: one");
             Fragment fragment1 = new CreatePinFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
