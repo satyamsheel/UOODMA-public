@@ -63,46 +63,77 @@
             app:layout_constraintTop_toBottomOf="@+id/mainDashboardName"
             app:layout_constraintVertical_bias="0.016" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="360dp"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idNumber">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dashboardRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <Button
-        android:id="@+id/sendData"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-            android:layout_below="@id/mainDashboardUID"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/edit_round"
-        android:onClick="onSendRequest"
-        android:shadowRadius="10"
-        android:text="Send Data"
-        android:textColor="@color/outline_color"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.564"
-        app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainDashboardUID" />
 
-    <Button
-        android:id="@+id/deleteRequest"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/sendData"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/edit_round"
-        android:shadowRadius="10"
-        android:text="Delete Request"
-        android:textColor="@color/outline_color"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.564"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendData"
-        app:layout_constraintVertical_bias="0.167" />
+            android:id="@+id/sendData"
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/idNumber"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="57dp"
+            android:layout_marginLeft="57dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/edit_round"
+            android:onClick="onSendRequest"
+            android:shadowRadius="10"
+            android:text="Send \n Data"
+            android:textColor="@color/outline_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteRequest"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintVertical_bias="0.155" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/deleteRequest"
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/sendData"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginRight="57dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/edit_round"
+            android:shadowRadius="10"
+            android:text="Delete Request"
+            android:textColor="@color/outline_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sendData"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintVertical_bias="0.155" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"

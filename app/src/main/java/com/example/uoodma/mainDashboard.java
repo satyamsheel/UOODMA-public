@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.uoodma.helperClass.recyclerAdapter;
 import com.example.uoodma.login_register.MainActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -56,6 +59,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     NavigationView navigationView;
     Toolbar toolbar;
     Button sendData;
+    private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
     TextView headerEmail, mainDashboardName, mainDashboardUID;
     FirebaseUser user;
@@ -86,7 +90,12 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         mainDashboardName = findViewById(R.id.mainDashboardName);
         mainDashboardUID = findViewById(R.id.mainDashboardUID);
         setSupportActionBar(toolbar);
-
+        recyclerView=findViewById(R.id.dashboardRecycler);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        String[] items={"Document One","Document Two","Document Three","Document Four","Document Five","Document Six"};
+        recyclerView.setAdapter(new recyclerAdapter(items));
 
 
 
