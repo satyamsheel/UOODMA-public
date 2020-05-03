@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EnterPincodeFragment">
+
+
+    <TextView
+        android:id="@+id/pinMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter you pin"
+        android:textSize="16sp"
+        android:textColor="@color/lightPurple"
+        android:textAppearance="@style/ThemeOverlay.MaterialComponents.Dark"
+        android:layout_gravity="center"
+        android:layout_marginTop="180dp"/>
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/loginPinCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:padding="16dp"
+        android:maxLength="4"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/txt_border"
+        android:layout_marginLeft="16dp"
+        android:hint="@string/enter_pin"
+        android:inputType="numberPassword" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/enterButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:text="1"/>
+        <Button
+            android:id="@+id/enterButton2"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:textSize="25sp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"/>
+        <Button
+            android:id="@+id/enterButton3"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:textSize="25sp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/enterButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:text="4"/>
+        <Button
+            android:id="@+id/enterButton5"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"/>
+        <Button
+            android:id="@+id/enterButton6"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:textSize="25sp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/enterButton7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:text="7" />
+        <Button
+            android:id="@+id/enterButton8"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:textSize="25sp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8"/>
+        <Button
+            android:id="@+id/enterButton9"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:background="#ffffff"
+            android:textColor="@color/lightPurple"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/enterButtonDel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="#ffffff"
+                android:textColor="@color/lightPurple"
+                android:layout_weight="1"
+                android:textSize="25sp"
+                android:text="Del" />
+            <Button
+                android:id="@+id/enterButton0"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:textSize="25sp"
+                android:background="#ffffff"
+                android:textColor="@color/lightPurple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+            <Button
+                android:id="@+id/enterButtonGo"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:background="#ffffff"
+                android:textColor="@color/lightPurple"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Go"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

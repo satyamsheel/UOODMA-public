@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -44,7 +45,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import androidx.fragment.app.Fragment;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class mainDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int CHOOSE_IMAGE = 00001;
@@ -58,6 +62,9 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     ImageView profileImage;
     Uri uriProfilePic;
     String downloadImageLink;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -80,6 +87,10 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         mainDashboardUID = findViewById(R.id.mainDashboardUID);
         setSupportActionBar(toolbar);
 
+
+
+
+//        getPin();
 
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.navLogout).setVisible(true);
@@ -152,7 +163,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                   startActivity(intent1);
                   break;
               case R.id.navProfile:
-                  Intent intent3=new Intent(mainDashboard.this,MyProfile.class);
+                  Intent intent3=new Intent(mainDashboard.this,PinCodeActivity.class);
                   startActivity(intent3);
                   break;
 
@@ -234,5 +245,12 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+        String pin = sharedPreferences.getString("KEY", null);
+        Log.d("____", "onCreate: spref" + pin);
+
     }
+    
+
+
 }

@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".DocDetail"></activity>
+        <activity android:name=".PinCodeActivity"></activity>
+        <activity android:name=".DocDetail" />
         <activity android:name=".MyProfile" />
+
 
         <activity android:name=".sendData"></activity>
         <activity android:name=".uploadDocuments"
