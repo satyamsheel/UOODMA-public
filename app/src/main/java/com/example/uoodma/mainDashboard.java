@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -35,13 +37,21 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+import androidx.fragment.app.Fragment;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class mainDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int CHOOSE_IMAGE = 00001;
@@ -51,11 +61,15 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     Button sendData;
     private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
-    TextView headerEmail, mainDashboardName;
+    TextView headerEmail, mainDashboardName, mainDashboardUID;
     FirebaseUser user;
     ImageView profileImage;
     Uri uriProfilePic;
     String downloadImageLink;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
@@ -74,6 +88,7 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         headerEmail = findViewById(R.id.headerEmail);
         profileImage = findViewById(R.id.profileImage);
         mainDashboardName = findViewById(R.id.mainDashboardName);
+        mainDashboardUID = findViewById(R.id.mainDashboardUID);
         setSupportActionBar(toolbar);
         recyclerView=findViewById(R.id.dashboardRecycler);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
@@ -81,6 +96,10 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
         recyclerView.setLayoutManager(layoutManager);
         String[] items={"Document One","Document Two","Document Three","Document Four","Document Five","Document Six"};
         recyclerView.setAdapter(new recyclerAdapter(items));
+
+
+
+//        getPin();
 
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.navLogout).setVisible(true);
@@ -116,10 +135,15 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                     .load(user.getPhotoUrl().toString())
                     .into(profileImage);
         }
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        String uids = pref.getString("IMPUID", "  ");
+        String finalUID = "UID- " + "(" + uids.substring(0, 2) + ")(" + uids.substring(2, 5) + ")(" + uids.substring(5, 8)
+                + ")(" + uids.substring(8, 11) + ")(" + uids.substring(11, 14) + ")";
+        mainDashboardName.setText(user.getDisplayName());
+        mainDashboardUID.setText(finalUID);
 
-        if (user.getDisplayName() != null) {
-            mainDashboardName.setText(user.getDisplayName());
-        }
+
 
     }
 
@@ -148,12 +172,15 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
                   startActivity(intent1);
                   break;
               case R.id.navProfile:
-                  Intent intent3=new Intent(mainDashboard.this,MyProfile.class);
+                  Intent intent3=new Intent(mainDashboard.this,PinCodeActivity.class);
                   startActivity(intent3);
                   break;
 
               case R.id.navLogout:
                   mAuth.signOut();
+                  SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+                  SharedPreferences.Editor editor = pref.edit();
+                  editor.remove("IMPUID");
                   Intent intentLogout = new Intent(mainDashboard.this, MainActivity.class);
                   startActivity(intentLogout);
                   finish();
@@ -227,5 +254,12 @@ public class mainDashboard extends AppCompatActivity implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+        String pin = sharedPreferences.getString("KEY", null);
+        Log.d("____", "onCreate: spref" + pin);
+
     }
+    
+
+
 }

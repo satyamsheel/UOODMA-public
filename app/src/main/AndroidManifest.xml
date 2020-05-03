@@ -9,15 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".PinCodeActivity"></activity>
         <activity android:name=".DocDetail" />
         <activity android:name=".MyProfile" />
-        <activity android:name=".sendData" />
-        <activity
-            android:name=".uploadDocuments"
-            android:parentActivityName=".mainDashboard" />
-        <activity
-            android:name=".editProfile"
-            android:parentActivityName=".mainDashboard" />
+
+
+        <activity android:name=".sendData"></activity>
+        <activity android:name=".uploadDocuments"
+            android:parentActivityName=".mainDashboard"/>
+        <activity android:name=".editProfile"
+            android:parentActivityName=".mainDashboard"  />
+
         <activity android:name=".login_register.phoneVerificationActivity" />
         <activity android:name=".mainDashboard" />
         <activity android:name=".login_register.registerActivity" />
