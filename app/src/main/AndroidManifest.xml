@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.uoodma">
 
     <application
@@ -9,14 +10,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".PinCodeActivity"></activity>
         <activity android:name=".DocDetail" />
-        <activity android:name=".MyProfile" />
-        <activity android:name=".sendData" />
         <activity
-            android:name=".uploadDocuments"
-            android:parentActivityName=".mainDashboard" />
-        <activity android:name=".editProfile" />
+            android:name=".MyProfile"
+            android:screenOrientation="fullSensor" />
+
+
+        <activity android:name=".sendData"></activity>
+        <activity android:name=".uploadDocuments"
+            android:parentActivityName=".mainDashboard"/>
+        <activity android:name=".editProfile"
+            android:parentActivityName=".mainDashboard"  />
+
         <activity android:name=".login_register.phoneVerificationActivity" />
         <activity android:name=".mainDashboard" />
         <activity android:name=".login_register.registerActivity" />

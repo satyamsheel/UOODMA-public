@@ -2,10 +2,12 @@ package com.example.uoodma;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -15,6 +17,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,13 +25,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.example.uoodma.login_register.MainActivity;
-import com.example.uoodma.login_register.phoneVerificationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,7 +46,8 @@ public class editProfile extends AppCompatActivity {
     EditText editProfileEmailText, editProfileFullNameText, editProfilePhoneNumberText, editProfileAlternatePhoneNumberText,
             fullAddressText, editProfileCityText, editProfileStateText, editProfilePinCodeText, userDobText, userAgeText;
     Button editProfileSaveChanges, editProfileUploadData;
-
+    ProgressDialog progressDialog1;
+    Toolbar toolbar;
     TextView userVerificationText, verificationText;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -81,10 +81,18 @@ public class editProfile extends AppCompatActivity {
         editProfileEmail = findViewById(R.id.editProfileEmail);
         editProfileUploadData = findViewById(R.id.editProfileUploadData);
         swipeRefreshLayout = findViewById(R.id.swipeToRefresh);
+        //toolbar implemented
+        toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         watcherConnecter();
         setUserDobnAge();
         updateUserInfoBtn();
+//progress bar implemented
+        progressDialog1 = new ProgressDialog(this);
+        progressDialog1.setMessage("Please Wait");
+        progressDialog1.setCanceledOnTouchOutside(true);
     }
 
     public void watcherConnecter(){
@@ -124,9 +132,11 @@ public class editProfile extends AppCompatActivity {
                     return;
                 } else if (!validateUpdatePincode()){
                     return;
-                } else {
+                }
+                else {
                     updateUserInfo();
                 }
+                progressDialog1.show();
             }
         });
 
@@ -134,22 +144,23 @@ public class editProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fetchUserInfo();
-
+              progressDialog1.show();
             }
         });
     }
 
     private void fetchUserInfo() {
-        String userId = mAuth.getCurrentUser().getUid();
-        DocumentReference documentReference = db.collection("Users").document(userId);
+
+        DocumentReference documentReference = db.collection("Users").document(mAuth.getCurrentUser().getUid());
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                progressDialog1.dismiss();
                 if (documentSnapshot.exists()) {
                     // Map<String, Object> user = new HashMap<>();
                     editProfileFullNameText.setText(documentSnapshot.getString("User Full Name"));
                     editProfileAlternatePhoneNumberText.setText(documentSnapshot.getString("Alternate Phone"));
-                    userDobText.setText(documentSnapshot.getString("D.O.B"));
+                    userDobText.setText(documentSnapshot.getString("Birth Date"));
                     userAgeText.setText(documentSnapshot.getString("Age"));
                     fullAddressText.setText(documentSnapshot.getString("Full Address"));
                     editProfileCityText.setText(documentSnapshot.getString("City Name"));
@@ -168,15 +179,22 @@ public class editProfile extends AppCompatActivity {
         Map<String, Object> user = new HashMap<>();
         user.put("User Full Name", editProfileFullNameText.getText().toString());
         user.put("Alternate Phone", editProfileAlternatePhoneNumberText.getText().toString());
-        user.put("D.O.B", userDobText.getText().toString());
+        user.put("Birth Date", userDobText.getText().toString());
         user.put("Age", userAgeText.getText().toString());
         user.put("Full Address", fullAddressText.getText().toString());
         user.put("City Name", editProfileCityText.getText().toString());
         user.put("State Name", editProfileStateText.getText().toString());
         user.put("Pin Code", editProfilePinCodeText.getText().toString());
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        String uids = pref.getString("IMPUID", "  ");
+        user.put("UID", uids);
+
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                progressDialog1.dismiss();
                 Toast.makeText(editProfile.this, "Success", Toast.LENGTH_LONG).show();
             }
         });
@@ -345,21 +363,6 @@ public class editProfile extends AppCompatActivity {
         }
 
     }
-
-//    public boolean validateUpdatePhoneNum() {
-//        String phoneNum = editProfilePhoneNumberText.getText().toString().trim();
-//        if (phoneNum.length() != 13 && phoneNum.length() > 0) {
-//            editProfilePhoneNumberText.setError("Please enter correct no");
-//            editProfilePhoneNumberText.requestFocus();
-//            return false;
-//        } else if (phoneNum.isEmpty()) {
-//            editProfilePhoneNumberText.setError("Please enter no");
-//            editProfilePhoneNumberText.requestFocus();
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
 
     public boolean validateUpdateAlternatePhoneNum() {
         String altPhoneNum = editProfileAlternatePhoneNumberText.getText().toString().trim();
