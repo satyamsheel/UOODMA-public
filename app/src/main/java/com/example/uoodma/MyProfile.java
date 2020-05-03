@@ -1,5 +1,6 @@
 package com.example.uoodma;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.zxing.WriterException;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.io.WriteAbortedException;
 import java.security.MessageDigest;
@@ -35,11 +39,12 @@ public class MyProfile extends AppCompatActivity {
     TextView myProfileName, myProfileUID;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    ImageView myProfileQRCode;
+    ImageView myProfileQRCode, myPtofileGoBack;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
     String stringData, encryptedData;
     String AES = "AES";
+    Button myProfileScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class MyProfile extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         myProfileQRCode = findViewById(R.id.myProfileQRCode);
         myProfileUID = findViewById(R.id.myProfileUID);
+        myPtofileGoBack = findViewById(R.id.myPtofileGoBack);
+        myProfileScan = findViewById(R.id.myProfileScan);
 
         myProfileName.setText(firebaseUser.getDisplayName());
         stringData = firebaseAuth.getUid();
@@ -69,7 +76,34 @@ public class MyProfile extends AppCompatActivity {
         }
         generateQr(encryptedData);
 
+        myProfileScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator integrator = new IntentIntegrator(MyProfile.this);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setPrompt("Scan");
+                integrator.setCameraId(0);
+                integrator.setBeepEnabled(false);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.initiateScan();
+            }
+        });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(MyProfile.this, "Scanning cancelled", Toast.LENGTH_LONG).show();
+            } else {
+
+
+            }
+        }
+
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private String encryptUID(String data, String password) throws Exception {
@@ -110,6 +144,13 @@ public class MyProfile extends AppCompatActivity {
                 Toast.makeText(MyProfile.this, "Qr generation Failed", Toast.LENGTH_LONG).show();
             }
         }
+
+
     }
 
+    public void goBackToDashboard(View view) {
+        Intent intent = new Intent(MyProfile.this, mainDashboard.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 }
