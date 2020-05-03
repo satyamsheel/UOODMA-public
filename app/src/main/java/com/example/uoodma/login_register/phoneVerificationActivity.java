@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -27,9 +29,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -146,6 +151,15 @@ public class phoneVerificationActivity extends AppCompatActivity {
                             user.put("Full Name", intentExtra.getStringExtra("First Name") + " " +
                                     intentExtra.getStringExtra("Last Name"));
                             user.put("Mobile Number", intentExtra.getStringExtra("Phone Number"));
+
+                            Calendar calendar = Calendar.getInstance();
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMhhmmssSSyy");
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("BuyyaPref", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            String uidHolder = simpleDateFormat.format(calendar.getTime());
+                            editor.putString("IMPUID", uidHolder);
+                            editor.apply();
+                            user.put("UID", uidHolder);
 
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                             UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()

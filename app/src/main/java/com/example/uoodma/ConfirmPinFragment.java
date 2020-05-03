@@ -168,13 +168,8 @@ public class ConfirmPinFragment extends Fragment {
                     }else {
                         Toast.makeText(getActivity(), "Pin does not match", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
-
-
-
-
         return view;
     }
 }
