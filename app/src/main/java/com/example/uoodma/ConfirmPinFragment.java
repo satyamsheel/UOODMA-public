@@ -159,6 +159,7 @@ public class ConfirmPinFragment extends Fragment {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 getActivity().finish();
+
                                 Intent intent = new Intent(getActivity(), MyProfile.class);
                                 startActivity(intent);
                             }
