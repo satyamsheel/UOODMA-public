@@ -1,4 +1,4 @@
-package com.example.uoodma;
+package com.example.uoodma.Passcode;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.uoodma.MyProfile;
+import com.example.uoodma.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -149,16 +151,20 @@ public class ConfirmPinFragment extends Fragment {
                 public void onClick(View view) {
                     String confirmedString = confirmPinEditText.getText().toString();
                     if (confirmedString.hashCode() == uPin.hashCode()) {
+                        String userId = mAuth.getCurrentUser().getUid();
+                        DocumentReference documentReference = db.collection("Users").document(userId);
+                        Map<String, Object> pin = new HashMap<>();
+                        pin.put("onlinePin", confirmPinEditText.getText().toString());
+                        documentReference.update(pin).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                getActivity().finish();
+                                Intent intent = new Intent(getActivity(), MyProfile.class);
+                                startActivity(intent);
+                            }
+                        });
 
-                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("KEY", confirmedString);
-                        editor.apply();
 
-
-                    getActivity().finish();
-                    Intent intent = new Intent(getActivity(), MyProfile.class);
-                    startActivity(intent);
                     }else {
                         Toast.makeText(getActivity(), "Pin does not match", Toast.LENGTH_SHORT).show();
                     }

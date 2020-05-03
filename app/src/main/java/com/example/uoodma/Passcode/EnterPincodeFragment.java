@@ -1,4 +1,4 @@
-package com.example.uoodma;
+package com.example.uoodma.Passcode;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.uoodma.MyProfile;
+import com.example.uoodma.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -54,9 +56,9 @@ public class EnterPincodeFragment extends Fragment {
         pinMsg = view.findViewById(R.id.pinMsg);
 
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
-        final String upin = sharedPreferences.getString("KEY", null);
-        Log.d("____", "onCreate: enter spref" + upin);
+        SharedPreferences s = getActivity().getSharedPreferences("SP", 0);
+        final String fPin = s.getString("onlinePin",null);
+        Log.d("___", "OnCallBackact: " + fPin);
 
         enterButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +146,7 @@ public class EnterPincodeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String pin = enterPinEditText.getText().toString();
-                if (pin != null && pin.length() ==4 && pin.hashCode() == upin.hashCode() ){
+                if (pin != null && pin.length() ==4 && pin.hashCode() == fPin.hashCode() ){
                     getActivity().finish();
                     Intent intent = new Intent(getActivity(), MyProfile.class);
                     startActivity(intent);
