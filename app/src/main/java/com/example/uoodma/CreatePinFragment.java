@@ -1,4 +1,4 @@
-package com.example.uoodma.Passcode;
+package com.example.uoodma;
 
 import android.os.Bundle;
 
@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.uoodma.Passcode.ConfirmPinFragment;
+import com.example.uoodma.ConfirmPinFragment;
 import com.example.uoodma.R;
 
 

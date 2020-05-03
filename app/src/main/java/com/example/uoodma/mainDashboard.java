@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.uoodma.Passcode.PinCodeActivity;
 import com.example.uoodma.login_register.MainActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;

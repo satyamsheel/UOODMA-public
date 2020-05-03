@@ -1,4 +1,4 @@
-package com.example.uoodma.Passcode;
+package com.example.uoodma;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,10 +8,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.example.uoodma.Passcode.CreatePinFragment;
-import com.example.uoodma.Passcode.EnterPincodeFragment;
-import com.example.uoodma.R;
 
 public class PinCodeActivity extends AppCompatActivity {
 
