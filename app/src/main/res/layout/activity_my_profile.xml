@@ -35,35 +35,37 @@
             android:id="@+id/myProfileQRCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:src="@drawable/ic_apps_black_24dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/image_border"
+            android:src="@drawable/ic_apps_black_24dp"
             app:layout_constraintEnd_toEndOf="@+id/myProfileUID"
             app:layout_constraintStart_toStartOf="@+id/myProfileUID"
             app:layout_constraintTop_toBottomOf="@+id/myProfileUID" />
 
         <ImageButton
             android:id="@+id/myPtofileGoBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="66dp"
+            android:layout_height="35dp"
             android:background="?android:selectableItemBackground"
-            android:src="@drawable/ic_arrow_back_black_24dp"
             android:onClick="goBackToDashboard"
+            android:src="@drawable/ic_arrow_back_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/myProfileQRCode"
+            app:layout_constraintHorizontal_bias="0.095"
             app:layout_constraintStart_toStartOf="@+id/myProfileQRCode"
-            app:layout_constraintTop_toBottomOf="@+id/myProfileQRCode" />
+            app:layout_constraintTop_toBottomOf="@+id/myProfileQRCode"
+            app:layout_constraintVertical_bias="0.22" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="48dp"
             android:src="@drawable/ic_launcher_foreground"
             app:civ_border_color="#cccc"
             app:civ_border_width="2dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,20 +73,20 @@
             android:id="@+id/myProfileScan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
             android:layout_marginLeft="80dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:background="@color/outline_color"
             android:text="Scan Qr"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.922"
+            app:layout_constraintHorizontal_bias="0.569"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/myPtofileGoBack"
-            app:layout_constraintVertical_bias="0.455" />
+            app:layout_constraintVertical_bias="0.0" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
