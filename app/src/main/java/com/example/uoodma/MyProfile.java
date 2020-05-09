@@ -156,8 +156,6 @@ public class MyProfile extends AppCompatActivity implements AlertDialogClass.Ale
                 Toast.makeText(MyProfile.this, "Qr generation Failed", Toast.LENGTH_LONG).show();
             }
         }
-
-
     }
 
     public void goBackToDashboard(View view) {

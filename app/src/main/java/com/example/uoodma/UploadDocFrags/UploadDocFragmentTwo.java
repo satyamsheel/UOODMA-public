@@ -8,14 +8,10 @@ import android.widget.Button;
 
 import com.example.uoodma.R;
 
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class UploadDocFragmentTwo extends Fragment {
     Button frag2Btn1, frag2Btn2, frag2Btn3, frag2Btn4, frag2Btn5, frag2Btn6, frag2Btn7, frag2Btn8, frag2Btn9, frag2Btn10;
